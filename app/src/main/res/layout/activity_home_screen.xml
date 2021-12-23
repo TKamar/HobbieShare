@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.activity_main"
+    tools:context=".Activities.activity_home_screen"
     android:background="@drawable/wallpaper_homescreen"
     >
 
@@ -14,18 +14,17 @@
         android:id="@+id/title_img"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:background="@android:color/transparent"
-        >
+        android:src="@drawable/logo">
 
     </ImageView>
 
                          <!-- Buttons -->
 
     <ImageButton
-        android:id="@+id/button_my_hobbies"
+        android:id="@+id/button_myHobbies"
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_below="@id/title_img"
@@ -36,11 +35,12 @@
         android:src="@drawable/button_my_hobbies2">
 
     </ImageButton>
+
     <ImageButton
         android:id="@+id/button_create_new_event"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_below="@id/button_my_hobbies"
+        android:layout_below="@id/button_myHobbies"
         android:layout_centerInParent="true"
         android:layout_marginTop="15sp"
         android:background="@null"
@@ -57,8 +57,8 @@
         android:layout_below="@id/button_create_new_event"
         android:layout_centerInParent="true"
         android:layout_marginTop="15sp"
-        android:scaleType="fitCenter"
         android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@drawable/button_search_hobbies2">
 
     </ImageButton>
@@ -74,7 +74,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         android:background="#233E8B"
-        android:src="">
+        >
 
     </ImageView>
 
@@ -89,6 +89,7 @@
         >
 
         <ImageButton
+            android:id="@+id/btn_home"
             android:layout_width="50dp"
             android:layout_height="35dp"
             android:layout_weight="1"
@@ -101,6 +102,7 @@
 
 
         <ImageButton
+            android:id="@+id/btn_location"
             android:layout_width="45dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -114,6 +116,7 @@
 
 
         <ImageButton
+            android:id="@+id/btn_myGroups"
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
@@ -126,6 +129,7 @@
 
 
         <ImageButton
+            android:id="@+id/btn_myProfile"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"

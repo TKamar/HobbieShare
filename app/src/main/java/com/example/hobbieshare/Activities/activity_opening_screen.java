@@ -75,7 +75,7 @@ public class activity_opening_screen extends AppCompatActivity {
     }
 
     private void openHomeActivity() {
-        Intent intent = new Intent(this, activity_main.class);
+        Intent intent = new Intent(this, activity_home_screen.class);
         //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         finish();
         startActivity(intent);

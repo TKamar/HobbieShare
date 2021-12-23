@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Tomer/AndroidStudioProjects/HobbieShare/app/src/main/res/layout/activity_find_by_location.xml" value="0.180078125" />
+        <entry key="..\:/Users/Tomer/AndroidStudioProjects/HobbieShare/app/src/main/res/layout/activity_home_screen.xml" value="0.1" />
         <entry key="..\:/Users/Tomer/AndroidStudioProjects/HobbieShare/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/Users/Tomer/AndroidStudioProjects/HobbieShare/app/src/main/res/layout/activity_opening_screen.xml" value="0.2" />
+        <entry key="..\:/Users/Tomer/AndroidStudioProjects/HobbieShare/app/src/main/res/layout/fragment_map.xml" value="0.180078125" />
       </map>
     </option>
   </component>
