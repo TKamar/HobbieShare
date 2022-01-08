@@ -89,7 +89,19 @@ public class activity_home_screen extends AppCompatActivity {
             }
         });
 
+        btn_myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfileScreen();
+            }
+        });
+
+
+
+
     }
+
+
 
 
     private void findViews() {
@@ -125,6 +137,14 @@ public class activity_home_screen extends AppCompatActivity {
             startActivity(intent);
         }
 
+    }
+
+    private void goToProfileScreen() {
+        Intent intent = new Intent(this, activity_user_profile.class);
+        if (intent != null){
+            finish();
+            startActivity(intent);
+        }
     }
 
 
