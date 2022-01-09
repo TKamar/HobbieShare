@@ -89,7 +89,7 @@ public class activity_login extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(activity_login.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

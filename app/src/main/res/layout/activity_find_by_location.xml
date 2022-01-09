@@ -20,7 +20,7 @@
     </ImageButton>
 
     <ImageView
-        android:id="@+id/location_screen_title"
+        android:id="@+id/find_by_location_screen_title"
         android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
@@ -34,7 +34,7 @@
         android:id="@+id/frame_map"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_below="@+id/location_screen_title"
+        android:layout_below="@+id/find_by_location_screen_title"
         android:layout_marginTop="20dp"
         >
 
@@ -46,6 +46,116 @@
             />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/frame_map"
+        android:orientation="horizontal"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/find_by_location_screen_bottom_left"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <Spinner
+                android:id="@+id/find_by_location_screen_events_main_type"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+
+                />
+
+            <Spinner
+                android:id="@+id/find_by_location_screen_events_inner_type"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+
+                />
+            <ImageButton
+                android:id="@+id/find_by_location_screen_search"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/search_nearby" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/find_by_location_screen_bottom_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/find_by_location_screen_event_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/find_by_location_screen_event_time"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <TextView
+                android:id="@+id/find_by_location_screen_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_ask_to_join"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:layout_below="@id/bottom_container"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+
+
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ask_to_join" />
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_img_go_back"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_arrow_black"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        />
 
 
 

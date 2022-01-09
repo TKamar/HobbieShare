@@ -101,6 +101,7 @@ public class activity_register extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(activity_register.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });
