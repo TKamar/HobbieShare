@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activities.activity_create_new_event"
+    android:background="@drawable/wallpaper_homescreen"
+    >
+
+    <ImageButton
+        android:id="@+id/create_new_event_screen_logo"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo">
+
+    </ImageButton>
+
+    <ImageView
+        android:id="@+id/create_new_event_screen_title"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/create_new_event_title">
+
+    </ImageView>
+
+    <FrameLayout
+        android:id="@+id/frame_map"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/create_new_event_screen_title"
+        android:layout_marginTop="20dp"
+        >
+
+        <fragment
+            android:id="@+id/create_new_event_screen_map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/create_new_event_screen_main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/frame_map"
+        android:orientation="vertical"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/create_new_event_screen_event_title_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_new_event_screen_event_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Title: " />
+
+            <EditText
+                android:id="@+id/create_new_event_screen_event_title_content"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:background="@color/white"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/create_new_event_screen_event_description_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_new_event_screen_event_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Description: "
+                />
+
+            <EditText
+                android:id="@+id/create_new_event_screen_event_description_content"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:background="@color/white"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/create_new_event_screen_event_type_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_new_event_screen_event_main_type"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Event Main Category: " />
+
+            <Spinner
+                android:id="@+id/create_new_event_screen_event_main_type_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+
+                />
+
+            <TextView
+                android:id="@+id/create_new_event_screen__event_inner_type"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Event Inner Category: " />
+
+            <Spinner
+                android:id="@+id/create_new_event_screen__event_inner_type_spinner"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_weight="1"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/create_new_event_screen_event_lonlat_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_new_event_screen_event_lonlat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Location: " />
+
+            <EditText
+                android:id="@+id/create_new_event_screen_event_lat_content"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:background="@color/white"
+
+                />
+            <Space
+                android:layout_width="5dp"
+                android:layout_height="0dp"/>
+            <EditText
+                android:id="@+id/create_new_event_screen_event_lon_content"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:inputType="numberDecimal"
+                android:textColor="@color/black"
+                android:background="@color/white"
+
+                />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/create_new_event_screen_create_new_event_button"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/create_new_event_button"
+
+            />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/create_new_event_screen_img_go_back"
+        android:layout_width="30sp"
+        android:layout_height="30sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/back_arrow_black" />
+
+
+
+
+</RelativeLayout>

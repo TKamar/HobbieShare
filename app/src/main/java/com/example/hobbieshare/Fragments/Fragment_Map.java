@@ -2,20 +2,26 @@ package com.example.hobbieshare.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.hobbieshare.CallBacks.Callback_Map;
 import com.example.hobbieshare.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Freagment_Map#newInstance} factory method to
+ * Use the {@link Fragment_Map#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Freagment_Map extends Fragment {
+public class Fragment_Map extends Fragment {
+
+    private AppCompatActivity activity;
+    private Callback_Map callBack_map;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,8 +32,22 @@ public class Freagment_Map extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Freagment_Map() {
+    public Fragment_Map() {
         // Required empty public constructor
+    }
+
+
+    public void setActivity(AppCompatActivity activity) {
+        this.activity = activity;
+    }
+
+    public void setCallBack_map(Callback_Map callBack_map) {
+        this.callBack_map = callBack_map;
+    }
+
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        return view;
     }
 
     /**
@@ -39,8 +59,8 @@ public class Freagment_Map extends Fragment {
      * @return A new instance of fragment Freagment_Map.
      */
     // TODO: Rename and change types and number of parameters
-    public static Freagment_Map newInstance(String param1, String param2) {
-        Freagment_Map fragment = new Freagment_Map();
+    public static Fragment_Map newInstance(String param1, String param2) {
+        Fragment_Map fragment = new Fragment_Map();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,10 +77,4 @@ public class Freagment_Map extends Fragment {
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false);
-    }
 }

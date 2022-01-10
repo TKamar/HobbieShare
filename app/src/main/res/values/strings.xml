@@ -27,5 +27,7 @@
         <item name="colorOnSurface">#3b5998</item>
     </style>
 
+    <string name="activity_google_map">Google_Map</string>
+
 
 </resources>

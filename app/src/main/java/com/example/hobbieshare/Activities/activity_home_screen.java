@@ -51,15 +51,9 @@ public class activity_home_screen extends AppCompatActivity {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             OnGPS();
         } else {
+            Log.d("Hiiii", "onCreate: im in else");
             getLocation();
         }
-
-        Bundle data = getIntent().getExtras();
-        if (data != null) {
-            myCoordinates[0] = data.getDouble("lat");
-            myCoordinates[1] = data.getDouble("lon");
-        }
-
 
 
         btn_home.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +87,13 @@ public class activity_home_screen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToProfileScreen();
+            }
+        });
+
+        btn_createNewEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToCreateNewHobbyEventScreen();
             }
         });
 
@@ -147,6 +148,16 @@ public class activity_home_screen extends AppCompatActivity {
         }
     }
 
+    private void goToCreateNewHobbyEventScreen() {
+        Intent intent = new Intent(this, activity_create_new_event.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + latitude);
+            intent.putExtra("lon", "" + longitude);
+            finish();
+            startActivity(intent);
+        }
+    }
+
 
     /**
      * Location Funcs
@@ -176,11 +187,14 @@ public class activity_home_screen extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Log.d("Hiiii", "getLocation: im in else 2 --> locationGPS " + locationGPS);
             if (locationGPS != null) {
+                Log.d("Hiiii", "getLocation: im in else 3");
                 double lat = locationGPS.getLatitude();
                 double lon = locationGPS.getLongitude();
                 latitude = String.valueOf(lat);
                 longitude = String.valueOf(lon);
+                Log.d("Hiiii", "getLocation: lat" + lat + " lon" + lon);
             } else {
                 Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
             }

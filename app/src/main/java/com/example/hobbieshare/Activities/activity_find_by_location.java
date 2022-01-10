@@ -23,7 +23,7 @@ import java.util.EventListener;
 public class activity_find_by_location extends AppCompatActivity {
 
     private ImageButton logo, searchButton, joinToEventButton;
-    double[] myCoordinates = new double[2];
+    private double[] myCoordinates = new double[2];
     private Spinner eventMainType;
     private Spinner eventInnerType;
     private ArrayAdapter<CharSequence> mainSpinnerAdapter;
