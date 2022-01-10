@@ -23,7 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class activity_create_new_event extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
+public class activity_create_new_event extends AppCompatActivity implements OnMapReadyCallback {
 
     private EditText eventTitle, eventDescription, lat, lon;
     private Spinner eventMainType, eventInnerType;
@@ -120,25 +120,6 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
                 gMap.addMarker(new MarkerOptions().position(coordinates).draggable(false).title("Hobby Event Location"));
                 gMap.animateCamera(CameraUpdateFactory.newLatLngZoom(coordinates, 15), 5000, null);
             });
-
-
-    }
-
-
-    @Override
-    public void onMarkerDrag(@NonNull Marker marker) {
-
-    }
-
-    @Override
-    public void onMarkerDragEnd(@NonNull Marker marker) {
-        doLat     = marker.getPosition().latitude;
-        doLon     = marker.getPosition().longitude;
-    }
-
-    @Override
-    public void onMarkerDragStart(@NonNull Marker marker) {
-
     }
 
 }
