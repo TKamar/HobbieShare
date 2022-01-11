@@ -74,10 +74,9 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:inputType="text"
-                android:textColor="@color/black"
                 android:background="@color/white"
-                />
+                android:inputType="text"
+                android:textColor="@color/black" />
 
         </LinearLayout>
 
@@ -93,17 +92,16 @@
                 android:id="@+id/create_new_event_screen_event_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Event Description: "
-                />
+                android:text="Event Description: " />
 
             <EditText
                 android:id="@+id/create_new_event_screen_event_description_content"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:inputType="text"
                 android:textColor="@color/black"
-                android:background="@color/white"
 
                 />
 
@@ -168,22 +166,24 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:inputType="number"
                 android:textColor="@color/black"
-                android:background="@color/white"
 
                 />
+
             <Space
                 android:layout_width="5dp"
-                android:layout_height="0dp"/>
+                android:layout_height="0dp" />
+
             <EditText
                 android:id="@+id/create_new_event_screen_event_lon_content"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:inputType="numberDecimal"
                 android:textColor="@color/black"
-                android:background="@color/white"
 
                 />
 

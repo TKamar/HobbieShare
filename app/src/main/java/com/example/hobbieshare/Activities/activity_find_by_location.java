@@ -98,7 +98,7 @@ public class activity_find_by_location extends AppCompatActivity {
     }
 
     private void setInnerSpinnerAdapter() {
-        String[] currList = {"1"};
+        String[] currList = {""};
         String selectedMainType = getSelectedEventType();
         switch (selectedMainType) {
             case "ספורט":
