@@ -14,13 +14,6 @@
     </ImageView>
 
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -195,17 +188,12 @@
 
     </LinearLayout>
 
-    </ScrollView>
-
     <ProgressBar
         android:id="@+id/register_screen_progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_screen_buttons_container"
-        android:visibility="invisible">
-
-    </ProgressBar>
-
+        android:visibility="invisible"/>
 
 
 

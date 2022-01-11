@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,12 +14,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class activity_register extends AppCompatActivity {
 
@@ -28,6 +34,9 @@ public class activity_register extends AppCompatActivity {
     private ProgressBar progressBar;
     private ImageButton goBack;
     private TextView goToLogin;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private String userID;
 
 
 
@@ -36,10 +45,9 @@ public class activity_register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         findViews();
-
+        firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), activity_home_screen.class));
-            finish();
+            goToLoginScreen();
         }
 
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -52,8 +60,7 @@ public class activity_register extends AppCompatActivity {
         goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), activity_login.class));
-                finish();
+                goToLoginScreen();
             }
         });
 
@@ -90,26 +97,15 @@ public class activity_register extends AppCompatActivity {
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
-
-                /** Register User into FireBase Data  */
-                firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(activity_register.this, "User Created", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), activity_home_screen.class));
-                        }
-                        else {
-                            Toast.makeText(activity_register.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    }
-                });
+                addUserToDB();
+                goToLoginScreen();
 
             }
         });
     }
 
+
+    /** Switch Activities functions */
     private void goToOpeningScreen() {
         Intent intent = new Intent(this, activity_opening_screen.class);
         if (intent != null) {
@@ -117,6 +113,15 @@ public class activity_register extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    private void goToLoginScreen() {
+        Intent intent = new Intent(this, activity_login.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
+
 
     private void findViews(){
         registerFullname = findViewById(R.id.plainTxt_fullName);
@@ -130,4 +135,50 @@ public class activity_register extends AppCompatActivity {
         goBack = findViewById(R.id.register_img_go_back);
         goToLogin = findViewById(R.id.txt_go_to_login);
     }
+
+    /** Register User into FireBase Data  */
+    private void addUserToDB(){
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("users");
+
+        String email = registerEmail.getText().toString().trim();
+        String password = registerPassword.getText().toString().trim();
+        String fullName = registerFullname.getText().toString().trim();
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(activity_register.this, "User Created", Toast.LENGTH_SHORT).show();
+
+
+                    Log.d("success_onComplete", "onComplete: createUserWithEmailAndPassword success");
+                    //startActivity(new Intent(getApplicationContext(), activity_home_screen.class));
+                }
+                else {
+                    Toast.makeText(activity_register.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        if (firebaseAuth != null){
+            Log.d("firebaseAuth not null", "addUserToDB: " + firebaseAuth);
+            userID = firebaseAuth.getCurrentUser().getUid();
+
+        }
+
+
+        User user = new User()
+                .setFullName(fullName)
+                .setEmail(email)
+                .setPassword(password)
+                .setUserHobbies(new ArrayList<>());
+
+
+        myRef.child(userID).setValue(user);
+
+    }
+
 }

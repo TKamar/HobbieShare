@@ -18,9 +18,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.hobbieshare.Classes.DBUsers;
 import com.example.hobbieshare.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class activity_home_screen extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
     private ImageButton btn_home;
     private ImageButton btn_myGroups;
@@ -43,6 +49,11 @@ public class activity_home_screen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
         findViews();
         context = getApplicationContext();
+
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
+        DBUsers dbUsers = new DBUsers();
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -187,14 +198,13 @@ public class activity_home_screen extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             Location locationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            Log.d("Hiiii", "getLocation: im in else 2 --> locationGPS " + locationGPS);
             if (locationGPS != null) {
-                Log.d("Hiiii", "getLocation: im in else 3");
+
                 double lat = locationGPS.getLatitude();
                 double lon = locationGPS.getLongitude();
                 latitude = String.valueOf(lat);
                 longitude = String.valueOf(lon);
-                Log.d("Hiiii", "getLocation: lat" + lat + " lon" + lon);
+
             } else {
                 Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
             }

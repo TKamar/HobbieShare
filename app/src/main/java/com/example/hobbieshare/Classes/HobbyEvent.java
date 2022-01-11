@@ -1,14 +1,10 @@
 package com.example.hobbieshare.Classes;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.example.hobbieshare.Classes.User;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class HobbyEvent {
 
-    private String name;
+    private String title;
     private int eventManagerId;
     private ArrayList<User> participants;
     //private String dayOfEvent;
@@ -16,17 +12,18 @@ public class HobbyEvent {
     private String subCategory;
     private int eventId;
     private int idGenerator = 0;
-    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+    //private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private User adminEvent;
     double[] myCoordinates = new double[2];
+    String lat, lon;
 
     public void HobbyEvent(String name, int eventManagerId/*, String dayOfEvent*/, String categoryOfEvent, String subCategory, Double lat, Double lon) {
-        this.name = name;
+        this.title = name;
         this.eventManagerId = eventManagerId;
         //this.dayOfEvent = dayOfEvent;
         this.categoryOfEvent = categoryOfEvent;
         this.subCategory = subCategory;
-        this.adminEvent = adminEvent.getUser();
+//        this.adminEvent = adminEvent.getUser();
         ArrayList<User> participants = new ArrayList<>();
         participants.add(adminEvent);
         this.myCoordinates[0] = lat;
@@ -35,12 +32,23 @@ public class HobbyEvent {
         idGenerator++;
     }
 
-    public String getName() {
-        return name;
+    public HobbyEvent(String title, String categoryOfEvent, String subCategory, String lat, String lon) {
+        this.title = title;
+        this.categoryOfEvent = categoryOfEvent;
+        this.subCategory = subCategory;
+        ArrayList<User> participants = new ArrayList<>();
+        this.lat = lat;
+        this.lon = lon;
+        this.eventId = idGenerator;
+        idGenerator++;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getEventManagerId() {
@@ -55,11 +63,15 @@ public class HobbyEvent {
         return participants;
     }
 
-    public void setParticipants(ArrayList<User> participants) {
-        this.participants = participants;
+//    public void setParticipants(boolean participants) {
+//        this.participants = participants;
+//    }
+
+    public void setParticipants(User participant) {
+        this.participants.add(participant) ;
     }
 
-//    public String getDayOfEvent() {
+    //    public String getDayOfEvent() {
 //        return dayOfEvent;
 //    }
 //

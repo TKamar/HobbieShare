@@ -14,6 +14,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hobbieshare.Classes.DBUsers;
+import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -29,17 +31,23 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class activity_login extends AppCompatActivity {
+
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
+    private FirebaseAuth mAuth;
 
     private EditText loginEmail, loginPassword;
     private MaterialButton loginButton;
     private static final String TAG = "FacebookLogin";
-    private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
     private ImageButton goBack;
     private ProgressBar progressBar;
     private TextView goToRegister;
+    private String fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +56,23 @@ public class activity_login extends AppCompatActivity {
 
         findViews();
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference();
+
+        DBUsers dbUsers = new DBUsers();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = loginEmail.getText().toString().trim();
                 String password = loginPassword.getText().toString().trim();
+
+//                Bundle data = getIntent().getExtras();
+//                if (data != null) {
+//                    fullName = data.getString("fullName");
+//                }
+
+                User user = new User();
+
 
                 if(TextUtils.isEmpty(email)){
                     loginEmail.setError("Email is Required");
@@ -111,8 +131,6 @@ public class activity_login extends AppCompatActivity {
                 finish();
             }
         });
-
-
 
         // [START initialize_fblogin]
         // Initialize Facebook Login button
