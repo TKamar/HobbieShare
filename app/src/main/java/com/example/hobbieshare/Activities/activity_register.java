@@ -152,6 +152,7 @@ public class activity_register extends AppCompatActivity {
                 if(task.isSuccessful()){
                     Toast.makeText(activity_register.this, "User Created", Toast.LENGTH_SHORT).show();
 
+                    /**We dont get here... need to chek why*/
 
                     Log.d("success_onComplete", "onComplete: createUserWithEmailAndPassword success");
                     //startActivity(new Intent(getApplicationContext(), activity_home_screen.class));
