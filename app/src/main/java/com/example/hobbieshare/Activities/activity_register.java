@@ -167,9 +167,7 @@ public class activity_register extends AppCompatActivity {
         if (firebaseAuth != null){
             Log.d("firebaseAuth not null", "addUserToDB: " + firebaseAuth);
             userID = firebaseAuth.getCurrentUser().getUid();
-
         }
-
 
         User user = new User()
                 .setFullName(fullName)
