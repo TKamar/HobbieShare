@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 
+import com.example.hobbieshare.CallBacks.Callback_Counter;
+import com.example.hobbieshare.Classes.DB_Manager;
+import com.example.hobbieshare.Classes.Hobby;
+import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,6 +32,7 @@ public class activity_opening_screen extends AppCompatActivity {
         setContentView(R.layout.activity_opening_screen);
 
         findViews();
+        initCounters();
         logo.setVisibility(View.INVISIBLE);
         btn_login.setVisibility(View.INVISIBLE);
         btn_register.setVisibility(View.INVISIBLE);
@@ -55,6 +60,7 @@ public class activity_opening_screen extends AppCompatActivity {
 
     }
 
+    /** Switch Activities */
     private void goToLoginScreen() {
         Intent intent = new Intent(this, activity_login.class);
         if (intent != null) {
@@ -71,7 +77,15 @@ public class activity_opening_screen extends AppCompatActivity {
         }
     }
 
+    private void goToHomeScreen() {
+        Intent intent = new Intent(this, activity_home_screen.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
 
+    /** Animation */
     private void startAnimation(ImageView img) {
         img.setVisibility(View.VISIBLE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -117,24 +131,33 @@ public class activity_opening_screen extends AppCompatActivity {
 
     private void animationDone() {
 
-        // openHomeActivity();
         btn_login.setVisibility(View.VISIBLE);
         btn_register.setVisibility(View.VISIBLE);
     }
 
-    private void openHomeActivity() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        startActivity(intent);
 
-    }
-
+    /** Init Functions */
     private void findViews() {
-
         logo = findViewById(R.id.activity_opening_screen_logo);
         btn_login = findViewById(R.id.activity_opening_screen_login_button);
         btn_register = findViewById(R.id.activity_opening_screen_register_button);
+    }
+
+
+    private void initCounters() {
+        DB_Manager.getCounter("Users_Counter", new Callback_Counter() {
+            @Override
+            public void dataReady(int value) {
+                User.setUsersIdGenerator(value);
+            }
+        });
+
+        DB_Manager.getCounter("Hobbies_Counter", new Callback_Counter() {
+            @Override
+            public void dataReady(int value) {
+                Hobby.setHobbiesIdGenerator(value);
+            }
+        });
     }
 
 

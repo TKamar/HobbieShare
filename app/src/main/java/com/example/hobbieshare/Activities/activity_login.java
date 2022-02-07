@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hobbieshare.Classes.DBUsers;
 import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.facebook.AccessToken;
@@ -59,7 +58,6 @@ public class activity_login extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
-        DBUsers dbUsers = new DBUsers();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

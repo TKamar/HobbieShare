@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class EventHandler {
 
     private ArrayList<User> allUsers;
-    private ArrayList<HobbyEvent> allHobbiesEvents;
+    private ArrayList<Hobby> allHobbiesEvents;
 
-    public void EventHandler(ArrayList<User> allUsers, ArrayList<HobbyEvent> allHobbiesEvents){
+    public void EventHandler(ArrayList<User> allUsers, ArrayList<Hobby> allHobbiesEvents){
         this.allUsers = allUsers;
         this.allHobbiesEvents = allHobbiesEvents;
     }

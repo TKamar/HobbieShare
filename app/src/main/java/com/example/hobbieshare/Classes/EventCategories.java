@@ -4,8 +4,6 @@ import android.content.Context;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.hobbieshare.Activities.activity_find_by_location;
-
 public class EventCategories {
 
     private Spinner eventMainType;

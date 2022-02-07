@@ -18,7 +18,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.hobbieshare.Classes.DBUsers;
 import com.example.hobbieshare.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -52,8 +51,6 @@ public class activity_home_screen extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
-
-        DBUsers dbUsers = new DBUsers();
 
         ActivityCompat.requestPermissions(this,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,9 +15,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hobbieshare.CallBacks.Callback_Map;
-import com.example.hobbieshare.Classes.DBHobbyEvents;
-import com.example.hobbieshare.Classes.HobbyEvent;
-import com.example.hobbieshare.Classes.User;
+import com.example.hobbieshare.Classes.DB_Manager;
+import com.example.hobbieshare.Classes.Hobby;
 import com.example.hobbieshare.Fragments.Fragment_Map;
 import com.example.hobbieshare.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,19 +27,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.FirebaseApp;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 
 public class activity_create_new_event extends AppCompatActivity implements OnMapReadyCallback {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
-    private DBHobbyEvents hobbyEventDB;
 
     private EditText eventTitle, eventDescription, lat, lon;
     private MapView myMap;
@@ -77,16 +73,14 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         findViews();
         initFragments();
         initSpinnersAdapters();
-
+        mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference();
-        hobbyEventDB = new DBHobbyEvents();
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
 
-            doLat = Double.valueOf(data.getString("lat"));
-            doLon = Double.valueOf(data.getString("lon"));
+            doLat = Double.parseDouble(data.getString("lat"));
+            doLon = Double.parseDouble(data.getString("lon"));
         }
         onMapReady(gMap);
 
@@ -123,32 +117,38 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
             }
         });
 
-
-
     }
 
     private void saveNewEventToDB() {
 
-        String title = eventTitle.getText().toString();
-        String description = eventDescription.getText().toString();
-        String mainCategory = eventMainType.getSelectedItem().toString();
-        String innerCategory = eventInnerType.getSelectedItem().toString();
-        String latitude = lat.getText().toString();
-        String longitude = lon.getText().toString();
+       String title = eventTitle.getText().toString();
+       String description = eventDescription.getText().toString();
+       String mainCategory = eventMainType.getSelectedItem().toString();
+       String innerCategory = eventInnerType.getSelectedItem().toString();
+       String latitude = lat.getText().toString();
+       String longitude = lon.getText().toString();
 
-//        HobbyEvent hobbyEvent = new HobbyEvent(title, mAuth.getCurrentUser().getUid(), mainCategory, innerCategory, latitude, longitude);
-        HobbyEvent hobbyEvent = new HobbyEvent(title, mainCategory, innerCategory, latitude, longitude);
-        User user = new User();
-        Log.d("user", "saveNewEventToDB: my new user is getEmail " + user.getEmail());
-        Log.d("user", "saveNewEventToDB: my new user is getFullName " + user.getFullName());
-        Log.d("user", "saveNewEventToDB: my new user is getUserId " + user.getUserId());
-        hobbyEvent.setParticipants(user);
 
-        hobbyEventDB.addHobbyEvent(hobbyEvent).addOnSuccessListener(suc -> {
-            Toast.makeText(this, "Hobby Event Created", Toast.LENGTH_SHORT).show();
-        }).addOnFailureListener(er -> {
-            Toast.makeText(this, "" + er.getMessage(), Toast.LENGTH_SHORT).show();
-        });
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
+        assert firebaseUser != null;
+        String userId = firebaseUser.getUid();
+
+        Hobby hobbyEvent = new Hobby()
+            .setDescription(description)
+                .setLon(longitude)
+                .setLat(latitude)
+                .setSubCategory(innerCategory)
+                .setCategoryOfEvent(mainCategory)
+                .setTitle(title)
+                .setParticipants("")
+                ;
+
+        myRef = database.getReference("hobbies");
+        myRef.child(""+hobbyEvent.getEventId()).setValue(hobbyEvent);
+
+        DB_Manager.setCounter("Hobbies_Counter", Hobby.getIdGenerator());
+        Toast.makeText(activity_create_new_event.this, "Hobby Event Created", Toast.LENGTH_SHORT).show();
 
         goToHomeScreen();
     }
@@ -251,13 +251,13 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         eventMainType.setAdapter(mainSpinnerAdapter);
     }
 
-    private String getSelectedEventType() {
+    private java.lang.String getSelectedEventType() {
         return eventMainType.getSelectedItem().toString();
     }
 
     private void setInnerSpinnerAdapter() {
-        String[] currList = {""};
-        String selectedMainType = getSelectedEventType();
+        java.lang.String[] currList = {""};
+        java.lang.String selectedMainType = getSelectedEventType();
         switch (selectedMainType) {
             case "ספורט":
                 currList = innerSpinnerEventListSports;

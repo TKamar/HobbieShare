@@ -14,13 +14,17 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hobbieshare.Classes.DB_Manager;
 import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -36,7 +40,7 @@ public class activity_register extends AppCompatActivity {
     private TextView goToLogin;
     private FirebaseDatabase database;
     private DatabaseReference myRef;
-    private String userID;
+    private String currUserID;
 
 
 
@@ -46,9 +50,6 @@ public class activity_register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         findViews();
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() != null){
-            goToLoginScreen();
-        }
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +99,7 @@ public class activity_register extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
                 addUserToDB();
-                goToLoginScreen();
+
 
             }
         });
@@ -116,6 +117,14 @@ public class activity_register extends AppCompatActivity {
 
     private void goToLoginScreen() {
         Intent intent = new Intent(this, activity_login.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(this, activity_home_screen.class);
         if (intent != null) {
             finish();
             startActivity(intent);
@@ -142,20 +151,42 @@ public class activity_register extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
 
-        String email = registerEmail.getText().toString().trim();
-        String password = registerPassword.getText().toString().trim();
-        String fullName = registerFullname.getText().toString().trim();
+        String email = registerEmail.getText().toString();
+        String password = registerPassword.getText().toString();
+        String fullName = registerFullname.getText().toString();
+        String userName = registerUsername.getText().toString();
 
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
+                if(task.isSuccessful()) {
+                    FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+                    firebaseUser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(@NonNull Void unused) {
+                            Toast.makeText(activity_register.this, "Verification mail has been sent!", Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(activity_register.this, "Error!" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    });
+
+                    Toast.makeText(activity_register.this, "Registration completed!", Toast.LENGTH_LONG).show();
+
+                    User user = new User()
+                            .setFullName(fullName)
+                            .setEmail(email)
+                            .setPassword(password)
+                            .setUserName(userName)
+                            .setUserHobbies("");
+
+
+                    myRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
+
                     Toast.makeText(activity_register.this, "User Created", Toast.LENGTH_SHORT).show();
-
-                    /**We dont get here... need to chek why*/
-
-                    Log.d("success_onComplete", "onComplete: createUserWithEmailAndPassword success");
-                    //startActivity(new Intent(getApplicationContext(), activity_home_screen.class));
+                    goToHomeScreen();
                 }
                 else {
                     Toast.makeText(activity_register.this, "Error! "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -164,19 +195,7 @@ public class activity_register extends AppCompatActivity {
             }
         });
 
-        if (firebaseAuth != null){
-            Log.d("firebaseAuth not null", "addUserToDB: " + firebaseAuth);
-            userID = firebaseAuth.getCurrentUser().getUid();
-        }
-
-        User user = new User()
-                .setFullName(fullName)
-                .setEmail(email)
-                .setPassword(password)
-                .setUserHobbies(new ArrayList<>());
-
-
-        myRef.child(userID).setValue(user);
+        DB_Manager.setCounter("Users_Counter", User.getIdGenerator());
 
     }
 

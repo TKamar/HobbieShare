@@ -1,22 +1,28 @@
 package com.example.hobbieshare.Classes;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
 public class User {
 
-    private String fullName, email, password;
-    private ArrayList<HobbyEvent> userHobbies;
-    private FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
+    private String fullName, email, password, userName;
+    private ArrayList<String> userHobbies = new ArrayList<>();
     private static int idGenerator = 0;
     private final int userId;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
 
     public User() {
-        this.userId = idGenerator;
-        idGenerator++;
+        this.userId = idGenerator++;
+    }
+
+    public static int getIdGenerator() {
+        return idGenerator;
+    }
+
+    public static void setUsersIdGenerator (int counter) {
+        User.idGenerator = counter;
     }
 
     public String getPassword() {
@@ -46,24 +52,33 @@ public class User {
         return this;
     }
 
-    public ArrayList<HobbyEvent> getUserHobbies() {
-        return userHobbies;
+    public String getUserName() {
+        return userName;
     }
 
-    public User setUserHobbies(ArrayList<HobbyEvent> userHobbies) {
-        this.userHobbies = userHobbies;
+    public User setUserName(String userName) {
+        this.userName = userName;
         return this;
     }
 
-    public FirebaseUser getFirebaseUser() {
-        return firebaseUser;
+    public ArrayList<String> getUserHobbies() {
+        return userHobbies;
     }
 
-    public void setFirebaseUser(FirebaseUser firebaseUser) {
-        this.firebaseUser = firebaseUser;
+    public User setUserHobbies(String hobbyID) {
+        this.userHobbies.add(hobbyID);
+        return this;
+
     }
 
-    public int getUserId() {
-        return userId;
+    @Override
+    public String toString() {
+        return "User{" +
+                "fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", userHobbies=" + userHobbies +
+                ", userId=" + userId +
+                '}';
     }
 }
