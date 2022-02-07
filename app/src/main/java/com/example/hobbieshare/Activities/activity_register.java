@@ -184,6 +184,7 @@ public class activity_register extends AppCompatActivity {
 
 
                     myRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
+                    DB_Manager.setCounter("Users_Counter", User.getIdGenerator());
 
                     Toast.makeText(activity_register.this, "User Created", Toast.LENGTH_SHORT).show();
                     goToHomeScreen();
@@ -195,7 +196,6 @@ public class activity_register extends AppCompatActivity {
             }
         });
 
-        DB_Manager.setCounter("Users_Counter", User.getIdGenerator());
 
     }
 

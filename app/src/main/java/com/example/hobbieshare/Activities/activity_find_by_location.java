@@ -12,12 +12,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.hobbieshare.CallBacks.Callback_Map;
+import com.example.hobbieshare.Classes.Hobby;
 import com.example.hobbieshare.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.EventListener;
 
 public class activity_find_by_location extends AppCompatActivity {
@@ -39,6 +41,10 @@ public class activity_find_by_location extends AppCompatActivity {
     private String[] innerSpinnerEventListFood = {"בישול", "אפייה","מסעדות"};
     private TextView eventTitle, eventTime, eventDescription;
     private ImageButton goBack;
+
+    private ArrayList<Hobby> allHobbies = new ArrayList<>();
+
+
 
 
 
@@ -134,7 +140,7 @@ public class activity_find_by_location extends AppCompatActivity {
         eventInnerType.setAdapter(innerSpinnerAdapter);
     }
 
-    /** Connecting Objects To View */
+    /** Init Functions */
     private void findViews() {
 
         logo = findViewById(R.id.location_screen_logo);
@@ -149,15 +155,18 @@ public class activity_find_by_location extends AppCompatActivity {
 
     }
 
+    private void getHobbiesFromDB() {
+
+    }
 
 
+    /** Switch Activities */
     private void goToHomeScreen() {
         Intent intent = new Intent(this, activity_home_screen.class);
         if (intent != null){
             finish();
             startActivity(intent);
         }
-
     }
 
     /**
