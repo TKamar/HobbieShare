@@ -251,13 +251,13 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         eventMainType.setAdapter(mainSpinnerAdapter);
     }
 
-    private java.lang.String getSelectedEventType() {
+    private String getSelectedEventType() {
         return eventMainType.getSelectedItem().toString();
     }
 
     private void setInnerSpinnerAdapter() {
-        java.lang.String[] currList = {""};
-        java.lang.String selectedMainType = getSelectedEventType();
+        String[] currList = {""};
+        String selectedMainType = getSelectedEventType();
         switch (selectedMainType) {
             case "ספורט":
                 currList = innerSpinnerEventListSports;

@@ -180,7 +180,7 @@ public class activity_register extends AppCompatActivity {
                             .setEmail(email)
                             .setPassword(password)
                             .setUserName(userName)
-                            .setUserHobbies("");
+                            .setUserHobbies(null);
 
 
                     myRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);

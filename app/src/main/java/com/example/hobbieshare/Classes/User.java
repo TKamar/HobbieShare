@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class User {
 
     private String fullName, email, password, userName;
-    private ArrayList<String> userHobbies = new ArrayList<>();
+    private ArrayList<Hobby> userHobbies = new ArrayList<>();
     private static int idGenerator = 0;
     private final int userId;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
@@ -61,14 +61,18 @@ public class User {
         return this;
     }
 
-    public ArrayList<String> getUserHobbies() {
+    public ArrayList<Hobby> getUserHobbies() {
         return userHobbies;
     }
 
-    public User setUserHobbies(String hobbyID) {
-        this.userHobbies.add(hobbyID);
+    public User setUserHobbies(Hobby hobby) {
+        this.userHobbies.add(hobby);
         return this;
 
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     @Override
@@ -81,4 +85,5 @@ public class User {
                 ", userId=" + userId +
                 '}';
     }
+
 }

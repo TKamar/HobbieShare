@@ -116,4 +116,20 @@ public class Hobby {
         this.lon = lon;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Hobby{" +
+                "eventId=" + eventId +
+                ", title='" + title + '\'' +
+                ", eventManagerId='" + eventManagerId + '\'' +
+                ", participants=" + participants +
+                ", categoryOfEvent='" + categoryOfEvent + '\'' +
+                ", subCategory='" + subCategory + '\'' +
+                ", description='" + description + '\'' +
+                ", lat='" + lat + '\'' +
+                ", lon='" + lon + '\'' +
+                ", firebaseAuth=" + firebaseAuth +
+                '}';
+    }
 }

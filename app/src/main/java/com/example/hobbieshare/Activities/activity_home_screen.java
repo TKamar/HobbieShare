@@ -130,8 +130,8 @@ public class activity_home_screen extends AppCompatActivity {
 
     private void goToLocationScreen() {
         Intent intent = new Intent(this, activity_find_by_location.class);
-        intent.putExtra("lat", Double.valueOf(latitude));
-        intent.putExtra("lon", Double.valueOf(longitude));
+        intent.putExtra("lat", Double.parseDouble(latitude));
+        intent.putExtra("lon", Double.parseDouble(longitude));
         if (intent != null) {
             finish();
             startActivity(intent);

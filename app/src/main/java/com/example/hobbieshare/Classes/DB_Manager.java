@@ -1,5 +1,7 @@
 package com.example.hobbieshare.Classes;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.hobbieshare.CallBacks.Callback_Counter;
@@ -15,6 +17,10 @@ import java.util.ArrayList;
 
 public class DB_Manager {
 
+//    public interface Callback_tmpHobby {
+//        void dataReady(ArrayList<Hobby> allHobbies);
+//    }
+
     public static void getAllHobbies(Callback_Hobbies callback_hobbies) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("hobbies");
@@ -25,6 +31,7 @@ public class DB_Manager {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     try {
                         Hobby hobbyEvent = child.getValue(Hobby.class);
+                        Log.d("PTT", "onDataChange: hobbyEvent:" + hobbyEvent.toString());
                         allHobbies.add(hobbyEvent);
                     } catch (Exception exception) { }
                 }
@@ -55,12 +62,14 @@ public class DB_Manager {
                     try {
                         User user = child.getValue(User.class);
                         allUsers.add(user);
+                        Log.d("getAllUsers", "onDataChange: users in DB Manager: " + user.toString());
                     } catch (Exception exception) {
 
                     }
                 }
                 if (callback_users != null) {
                     callback_users.dataReady(allUsers);
+
                 }
             }
 
