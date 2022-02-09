@@ -105,6 +105,19 @@ public class activity_home_screen extends AppCompatActivity {
             }
         });
 
+        btn_myGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMyHobbiesScreen();
+            }
+        });
+
+        btn_myHobbies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMyHobbiesScreen();
+            }
+        });
 
 
 
@@ -151,6 +164,16 @@ public class activity_home_screen extends AppCompatActivity {
     private void goToProfileScreen() {
         Intent intent = new Intent(this, activity_user_profile.class);
         if (intent != null){
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToMyHobbiesScreen() {
+        Intent intent = new Intent(this, activity_my_hobbies.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + latitude);
+            intent.putExtra("lon", "" + longitude);
             finish();
             startActivity(intent);
         }

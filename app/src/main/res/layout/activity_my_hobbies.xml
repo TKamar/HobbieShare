@@ -4,70 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activities.activity_home_screen"
+    tools:context=".Activities.activity_my_hobbies"
     android:background="@drawable/wallpaper_homescreen"
-
     >
 
-                        <!-- Logo -->
-
-    <ImageView
-        android:id="@+id/title_img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
-        android:background="@android:color/transparent"
+    <ImageButton
+        android:id="@+id/my_hobbies_screen_logo"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
         android:src="@drawable/logo">
 
-    </ImageView>
-
-                         <!-- Buttons -->
-
-    <ImageButton
-        android:id="@+id/button_myHobbies"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/title_img"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="80sp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_my_hobbies2">
-
     </ImageButton>
-
-    <ImageButton
-        android:id="@+id/button_create_new_event"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/button_myHobbies"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15sp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_create_new_event2"
-        >
-
-    </ImageButton>
-
-
-    <ImageButton
-        android:id="@+id/button_search_hobbies"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_below="@id/button_create_new_event"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="15sp"
-        android:background="@null"
-        android:scaleType="fitCenter"
-        android:src="@drawable/button_search_hobbies2">
-
-    </ImageButton>
-
 
     <ImageView
-        android:id="@+id/bottom_dashboard"
+        android:id="@+id/my_hobbies_screen_title"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:src="@drawable/button_my_hobbies2">
+
+    </ImageView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/my_hobbies_screen_title"
+        android:orientation="vertical"
+        android:paddingBottom="70dp"
+
+        >
+
+        <FrameLayout
+            android:id="@+id/my_hobbies_hobbyList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+    <FrameLayout
+        android:id="@+id/frame_map"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@+id/my_hobbies_list"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        >
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+
+    </FrameLayout>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/my_hobbies_bottom_dashboard"
         android:layout_width="match_parent"
         android:layout_height="50sp"
         android:layout_alignParentBottom="true"
@@ -80,7 +79,7 @@
 
     </ImageView>
 
-                        <!-- Bottom Dashboard -->
+    <!-- Bottom Dashboard -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -93,7 +92,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/btn_home"
+            android:id="@+id/my_hobbies_btn_home"
             android:layout_width="50dp"
             android:layout_height="35dp"
             android:layout_marginTop="10dp"
@@ -106,7 +105,7 @@
 
 
         <ImageButton
-            android:id="@+id/btn_location"
+            android:id="@+id/my_hobbies_btn_location"
             android:layout_width="45dp"
             android:layout_height="40dp"
             android:layout_marginTop="5dp"
@@ -120,7 +119,7 @@
 
 
         <ImageButton
-            android:id="@+id/btn_myGroups"
+            android:id="@+id/my_hobbies_btn_myGroups"
             android:layout_width="50dp"
             android:layout_height="55dp"
             android:layout_alignParentBottom="true"
@@ -133,7 +132,7 @@
 
 
         <ImageButton
-            android:id="@+id/btn_myProfile"
+            android:id="@+id/my_hobbies_btn_myProfile"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
@@ -148,6 +147,23 @@
 
 
     </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </RelativeLayout>

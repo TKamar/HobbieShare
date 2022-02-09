@@ -19,10 +19,22 @@ public class Hobby {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public Hobby() {
-        this.eventManagerId = firebaseAuth.getCurrentUser().getUid();
-        this.setParticipants(""+eventManagerId);
         this.eventId = idGeneratorHobbies++;
     }
+
+    public Hobby(int eventId, String title, String eventManagerId, ArrayList<String> participants, String categoryOfEvent, String subCategory,
+                 String description, String lat, String lon) {
+        this.eventId = eventId;
+        this.title = title;
+        this.eventManagerId = eventManagerId;
+        this.participants = participants;
+        this.categoryOfEvent = categoryOfEvent;
+        this.subCategory = subCategory;
+        this.description = description;
+        this.lat = lat;
+        this.lon = lon;
+    }
+
 
     public static int getIdGenerator() {
         return idGeneratorHobbies;
@@ -35,6 +47,19 @@ public class Hobby {
 
     public Hobby setParticipants(String participantID) {
         this.participants.add(participantID);
+        return this;
+    }
+
+    public static void setIdGeneratorHobbies(int idGeneratorHobbies) {
+        Hobby.idGeneratorHobbies = idGeneratorHobbies;
+    }
+
+    public ArrayList<String> getParticipants() {
+        return participants;
+    }
+
+    public Hobby setParticipants(ArrayList<String> participants) {
+        this.participants = participants;
         return this;
     }
 

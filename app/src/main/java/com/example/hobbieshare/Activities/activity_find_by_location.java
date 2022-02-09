@@ -280,10 +280,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         for(User user : users){
             this.allUsers.add(user);
         }
-        Log.d("setUsers", "setUsers: all users size: " + allUsers.size());
-        Log.d("setUsers", "setUsers: all users size - passed array: " + users.size());
-        Log.d("setUsers", "setUsers: all users: " + allUsers.toString());
-        Log.d("setUsers", "setUsers: all Hobbies: " + allHobbies.toString());
 
     }
 
@@ -292,7 +288,7 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         for(User user: allUsers){
             if(user.getEmail().equals(firebaseUser.getEmail())) {
                 myUser = user;
-                myUser.setUserHobbies(hobby);
+                myUser.addUserHobbies(hobby);
                 addUserToHobby(user, hobby);
             }
 
@@ -304,12 +300,12 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
             if(tmpHobby.getEventId() == hobby.getEventId()){
                 tmpHobby.setParticipants(user.getEmail());
                 Toast.makeText(activity_find_by_location.this, "You have joined the bobby group ~ ! ", Toast.LENGTH_SHORT).show();
+                DB_Manager.updateDB(user, hobby);
                 Log.d("addUserToHobby", "addUserToHobby: all users: " + allUsers);
                 Log.d("addUserToHobby", "addUserToHobby: all hobbies: " + allHobbies);
             }
         }
     }
-
 
 
     /** Map and Markers */
@@ -360,7 +356,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                             eventCategory.setText(hobby.getCategoryOfEvent());
                             eventSubcategory.setText(hobby.getSubCategory());
                             joinToEventButton.setVisibility(View.VISIBLE);
-                            //setUsersFromDB();
 
                             joinToEventButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
@@ -372,12 +367,12 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                         }
                     }
 
-
                     return false;
                 }
             });
 
             clusterManager.cluster();
+
 
         });
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hobbieshare.Classes.DB_Manager;
+import com.example.hobbieshare.Classes.Hobby;
 import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -132,7 +133,7 @@ public class activity_register extends AppCompatActivity {
     }
 
 
-    private void findViews(){
+    private void findViews() {
         registerFullname = findViewById(R.id.plainTxt_fullName);
         registerEmail = findViewById(R.id.login_screen_plainTxt_Email);
         registerPassword = findViewById(R.id.login_screen_plainTxt_password);
@@ -180,9 +181,10 @@ public class activity_register extends AppCompatActivity {
                             .setEmail(email)
                             .setPassword(password)
                             .setUserName(userName)
-                            .setUserHobbies(null);
+                            .addUserHobbies(null)
+                            ;
 
-
+                    myRef = database.getReference("users");
                     myRef.child(firebaseAuth.getCurrentUser().getUid()).setValue(user);
                     DB_Manager.setCounter("Users_Counter", User.getIdGenerator());
 

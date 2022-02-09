@@ -141,7 +141,7 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
                 .setSubCategory(innerCategory)
                 .setCategoryOfEvent(mainCategory)
                 .setTitle(title)
-                .setParticipants("")
+                .setParticipants(firebaseUser.getEmail())
                 ;
 
         myRef = database.getReference("hobbies");
@@ -171,7 +171,7 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
     private void initFragments() {
         map_fragment = new Fragment_Map();
         map_fragment.setActivity(this);
-        map_fragment.setCallBack_map(callback_map);
+        map_fragment.setCallbackMap(callback_map);
         mapFragmentSupport = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.create_new_event_screen_map);
         getSupportFragmentManager().beginTransaction().add(R.id.frame_map, map_fragment).commit();
 

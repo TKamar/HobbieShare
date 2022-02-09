@@ -10,28 +10,10 @@ public class User {
     private ArrayList<Hobby> userHobbies = new ArrayList<>();
     private static int idGenerator = 0;
     private final int userId;
-    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
+    //private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     public User() {
         this.userId = idGenerator++;
-    }
-
-    public static int getIdGenerator() {
-        return idGenerator;
-    }
-
-    public static void setUsersIdGenerator (int counter) {
-        User.idGenerator = counter;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public User setPassword(String password) {
-        this.password = password;
-        return this;
     }
 
     public String getFullName() {
@@ -52,6 +34,15 @@ public class User {
         return this;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public User setPassword(String password) {
+        this.password = password;
+        return this;
+    }
+
     public String getUserName() {
         return userName;
     }
@@ -65,15 +56,31 @@ public class User {
         return userHobbies;
     }
 
-    public User setUserHobbies(Hobby hobby) {
-        this.userHobbies.add(hobby);
+    public User setUserHobbies(ArrayList<Hobby> userHobbies) {
+        this.userHobbies = userHobbies;
         return this;
+    }
 
+    public static int getIdGenerator() {
+        return idGenerator;
+    }
+
+    public static void setIdGenerator(int idGenerator) {
+        User.idGenerator = idGenerator;
     }
 
     public int getUserId() {
         return userId;
     }
+
+//    public FirebaseAuth getFirebaseAuth() {
+//        return firebaseAuth;
+//    }
+//
+//    public User setFirebaseAuth(FirebaseAuth firebaseAuth) {
+//        this.firebaseAuth = firebaseAuth;
+//        return this;
+//    }
 
     @Override
     public String toString() {
@@ -81,9 +88,16 @@ public class User {
                 "fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", userName='" + userName + '\'' +
                 ", userHobbies=" + userHobbies +
                 ", userId=" + userId +
+                //", firebaseAuth=" + firebaseAuth +
                 '}';
+    }
+
+    public User addUserHobbies (Hobby hobby) {
+        this.userHobbies.add(hobby);
+        return this;
     }
 
 }

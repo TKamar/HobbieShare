@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 import com.example.hobbieshare.CallBacks.Callback_Counter;
 import com.example.hobbieshare.CallBacks.Callback_Hobbies;
 import com.example.hobbieshare.CallBacks.Callback_Users;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +34,37 @@ public class DB_Manager {
                     try {
                         Hobby hobbyEvent = child.getValue(Hobby.class);
                         Log.d("PTT", "onDataChange: hobbyEvent:" + hobbyEvent.toString());
+                        allHobbies.add(hobbyEvent);
+                    } catch (Exception exception) { }
+                }
+
+                if (callback_hobbies != null) {
+                    callback_hobbies.dataReady(allHobbies);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+
+
+    public static void getHobbiesOfCurrUser(Callback_Hobbies callback_hobbies) {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("userHobbies");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Hobby> allHobbies = new ArrayList<>();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    try {
+                        Hobby hobbyEvent = child.getValue(Hobby.class);
                         allHobbies.add(hobbyEvent);
                     } catch (Exception exception) { }
                 }
@@ -78,7 +111,6 @@ public class DB_Manager {
 
             }
         });
-
     }
 
     public static void getCounter(String counterType, Callback_Counter callback_counter) {
@@ -105,5 +137,40 @@ public class DB_Manager {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Counter_BD");
         myRef.child(counterType).setValue(value);
+    }
+
+    public static void updateDB(User user, Hobby hobby) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        DatabaseReference myUsersRef = database.getReference("users");
+        DatabaseReference myHobbiesRef = database.getReference("hobbies");
+
+        myUsersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myUsersRef.child(firebaseUser.getUid()).child("userHobbies").setValue(user.getUserHobbies());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        myHobbiesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                myHobbiesRef.child(""+hobby.getEventId()).child("participants").setValue(hobby.getParticipants());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
     }
 }

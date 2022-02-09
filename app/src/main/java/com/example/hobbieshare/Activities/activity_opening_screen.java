@@ -148,7 +148,7 @@ public class activity_opening_screen extends AppCompatActivity {
         DB_Manager.getCounter("Users_Counter", new Callback_Counter() {
             @Override
             public void dataReady(int value) {
-                User.setUsersIdGenerator(value);
+                User.setIdGenerator(value);
             }
         });
 

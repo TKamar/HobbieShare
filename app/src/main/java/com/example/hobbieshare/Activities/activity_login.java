@@ -64,10 +64,6 @@ public class activity_login extends AppCompatActivity {
                 String email = loginEmail.getText().toString().trim();
                 String password = loginPassword.getText().toString().trim();
 
-//                Bundle data = getIntent().getExtras();
-//                if (data != null) {
-//                    fullName = data.getString("fullName");
-//                }
 
                 User user = new User();
 
