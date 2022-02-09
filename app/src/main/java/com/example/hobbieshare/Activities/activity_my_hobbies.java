@@ -80,7 +80,7 @@ public class activity_my_hobbies extends AppCompatActivity {
         findViews();
         initFragmentHobbyList();
         initFragmentMap();
-        getHobbiesFromDB();
+        //getHobbiesFromDB();
 
 
         //getMyHobbiesListFromDB();
@@ -128,6 +128,7 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     private void initFragmentHobbyList() {
         fragment_hobby_list = new Fragment_Hobby_List();
+        Log.d("initFragmentHobbyList", "initFragmentHobbyList: " + fragment_hobby_list.toString()) ;
         fragment_hobby_list.setActivity(this);
         fragment_hobby_list.setCallbackList(callback_list);
         callback_list.getHobbyLocation(lat, lon);

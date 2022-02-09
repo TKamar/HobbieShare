@@ -2,6 +2,7 @@ package com.example.hobbieshare.Fragments;
 
 import android.os.Bundle;
 import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,9 @@ public class Fragment_Hobby_List extends Fragment {
                 board_LST_hobbies.setItemAnimator(new DefaultItemAnimator());
                 board_LST_hobbies.setAdapter(hobby_adapter);
 
+                Log.d("initViews1", "initViews: " + myHobbies);
+                setHobbiesFromCallback(myHobbies);
+                Log.d("initViews2", "initViews: " + myHobbies);
                 hobby_adapter.setHobbyEventItemClickListener(new Hobby_Adapter.HobbyEventItemClickListener() {
                     @Override
                     public void hobbyItemClicked(Hobby hobby, int position) {
@@ -75,6 +79,16 @@ public class Fragment_Hobby_List extends Fragment {
             }
         };
         DB_Manager.getHobbiesOfCurrUser(callback_hobbies);
+        Log.d("initViews", "initViews: " + myHobbies);
+        Log.d("initViews", "initViews: " + this.myHobbies);
+    }
+
+    private void setHobbiesFromCallback(ArrayList<Hobby> allHobbies){
+        for(Hobby hobby: allHobbies){
+            this.myHobbies.add(hobby);
+        }
+        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.myHobbies.size());
+        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.myHobbies.toString());
     }
 
     private void findViews(View view) {

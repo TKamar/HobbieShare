@@ -58,6 +58,7 @@ public class DB_Manager {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("userHobbies");
+        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: my ref" + myRef);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
