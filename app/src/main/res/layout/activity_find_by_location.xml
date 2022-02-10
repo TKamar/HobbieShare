@@ -165,20 +165,88 @@
         android:scaleType="fitCenter"
         android:src="@drawable/ask_to_join" />
 
-    <ImageButton
-        android:id="@+id/find_by_location_screen_img_go_back"
-        android:layout_width="30sp"
-        android:layout_height="30sp"
+
+    <ImageView
+        android:id="@+id/find_by_location_screen_bottom_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#233E8B"
+        >
+
+    </ImageView>
+
+    <!-- Bottom Dashboard -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_btn_home"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:src="@drawable/back_arrow_black" />
+        android:src="@drawable/home">
 
+    </ImageButton>
+
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_btn_location"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:baselineAlignBottom="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholder">
+
+    </ImageButton>
+
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_btn_myGroups"
+        android:layout_width="50dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_weight="1"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/group">
+
+    </ImageButton>
+
+
+    <ImageButton
+        android:id="@+id/find_by_location_screen_btn_myProfile"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="3dp"
+        android:layout_weight="1"
+        android:background="@null"
+
+        android:scaleType="fitCenter"
+        android:src="@drawable/user">
+
+    </ImageButton>
+
+    </LinearLayout>
 
 
 

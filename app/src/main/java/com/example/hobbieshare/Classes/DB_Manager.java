@@ -16,6 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DB_Manager {
 
@@ -57,8 +58,9 @@ public class DB_Manager {
     public static void getHobbiesOfCurrUser(Callback_Hobbies callback_hobbies) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).child("userHobbies");
-        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: my ref" + myRef);
+        DatabaseReference myRef = database.getReference().child("users").child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).child("userHobbies");
+        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: myRef" + myRef);
+        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: myRef.getDatabase" + myRef.getDatabase());
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

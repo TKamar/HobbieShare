@@ -1,5 +1,6 @@
 package com.example.hobbieshare.Fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -56,9 +58,10 @@ public class Fragment_Hobby_List extends Fragment {
 
     private void initViews(View view) {
         Callback_Hobbies callback_hobbies = new Callback_Hobbies() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void dataReady(ArrayList<Hobby> hobbies) {
-                Hobby_Adapter hobby_adapter = new Hobby_Adapter(getActivity(), myHobbies);
+                Hobby_Adapter hobby_adapter = new Hobby_Adapter(getActivity(), hobbies);
 
                 board_LST_hobbies.setLayoutManager(new GridLayoutManager(getActivity(),1));
                 board_LST_hobbies.setHasFixedSize(true);
@@ -71,11 +74,13 @@ public class Fragment_Hobby_List extends Fragment {
                 hobby_adapter.setHobbyEventItemClickListener(new Hobby_Adapter.HobbyEventItemClickListener() {
                     @Override
                     public void hobbyItemClicked(Hobby hobby, int position) {
+                        Log.d("initViews3", "initViews: " + hobby);
                         double lat = Double.parseDouble(hobby.getLat());
                         double lon = Double.parseDouble(hobby.getLon());
                         callback_list.getHobbyLocation(lat, lon);
                     }
                 });
+                Log.d("initViews1", "initViews: hobby adapter" + hobby_adapter.toString());
             }
         };
         DB_Manager.getHobbiesOfCurrUser(callback_hobbies);

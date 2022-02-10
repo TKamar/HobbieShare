@@ -40,8 +40,14 @@ import java.util.ArrayList;
 
 public class activity_find_by_location extends AppCompatActivity implements OnMapReadyCallback {
 
+    private ImageButton btn_home;
+    private ImageButton btn_myGroups;
+    private ImageButton btn_searchByLocation;
+    private ImageButton btn_myProfile;
+
+
     private ImageButton logo, searchButton, joinToEventButton;
-    private double[] myCoordinates = new double[2];
+    private double lat, lon;
     private Spinner eventMainType;
     private Spinner eventInnerType;
     private ArrayAdapter<CharSequence> mainSpinnerAdapter;
@@ -56,7 +62,9 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     private String[] innerSpinnerEventListOther= {"קסמים", "אוריגמי","גרפיטי"};
     private String[] innerSpinnerEventListFood = {"בישול", "אפייה","מסעדות"};
     private TextView eventTitle, eventDescription, eventCategory, eventSubcategory;
-    private ImageButton goBack;
+
+    private String latitude = "";
+    private String longitude = "";
 
     FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
@@ -81,32 +89,21 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         firebaseUser = mAuth.getCurrentUser();
         findViews();
         joinToEventButton.setVisibility(View.INVISIBLE);
-        //initSpinnersAdapters();
-
         getHobbiesFromDB();
-        //setUpClusterer();
 
-        /*
-        eventMainType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                setInnerSpinnerAdapter();
-            }
+//        Bundle locationData = getIntent().getExtras();
+//        if (locationData != null) {
+//            lat = locationData.getDouble("lat");
+//            lon = locationData.getDouble("lon");
+//        }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        */
-
-
-        Bundle locationData = getIntent().getExtras();
-        if (locationData != null) {
-            myCoordinates[0] = locationData.getDouble("lat");
-            myCoordinates[1] = locationData.getDouble("lon");
+        Bundle data = getIntent().getExtras();
+        if (data != null) {
+            lat = Double.parseDouble(data.getString("lat"));
+            lon = Double.parseDouble(data.getString("lon"));
         }
-        ZoomOnMap(myCoordinates[0], myCoordinates[1]);
+
+        ZoomOnMap(lat, lon);
         Log.d("allHobbies", "onCreate: allHobbies: " + allHobbies);
 
 
@@ -117,10 +114,25 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
             }
         });
 
-        goBack.setOnClickListener(new View.OnClickListener() {
+
+        btn_myProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToProfileScreen();
+            }
+        });
+
+        btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToHomeScreen();
+            }
+        });
+
+        btn_myGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToMyHobbiesScreen();
             }
         });
     }
@@ -182,24 +194,18 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         eventTitle = findViewById(R.id.find_by_location_screen_event_title);
         //eventTime = findViewById(R.id.find_by_location_screen_event_time);
         eventDescription = findViewById(R.id.find_by_location_screen_event_description);
-        goBack = findViewById(R.id.find_by_location_screen_img_go_back);
         //searchButton  = findViewById(R.id.find_by_location_screen_search);
         joinToEventButton = findViewById(R.id.find_by_location_screen_ask_to_join);
         eventCategory = findViewById(R.id.find_by_location_screen_event_Category);
         eventSubcategory = findViewById(R.id.find_by_location_screen_event_innerCategory);
-
+        btn_home = findViewById(R.id.find_by_location_screen_btn_home);
+        btn_myGroups = findViewById(R.id.find_by_location_screen_btn_myGroups);
+        btn_searchByLocation = findViewById(R.id.find_by_location_screen_btn_location);
+        btn_myProfile = findViewById(R.id.find_by_location_screen_btn_myProfile);
     }
 
 
 
-    /** Switch Activities */
-    private void goToHomeScreen() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null){
-            finish();
-            startActivity(intent);
-        }
-    }
 
     /**
      * Callback functions
@@ -384,4 +390,41 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     public void onMapReady(@NonNull GoogleMap googleMap) {
         map = googleMap;
     }
+
+
+    /**
+     * Intent - Switch between activities
+     * */
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(this, activity_home_screen.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToProfileScreen() {
+        Intent intent = new Intent(this, activity_user_profile.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToMyHobbiesScreen() {
+        Intent intent = new Intent(this, activity_my_hobbies.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+
 }

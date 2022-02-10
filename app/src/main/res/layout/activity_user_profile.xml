@@ -8,24 +8,226 @@
     android:background="@drawable/wallpaper_homescreen"
     >
 
+    <ImageButton
+        android:id="@+id/activity_user_profile_screen_logo"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo">
+
+    </ImageButton>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Profile"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        />
+
+    <TextView
+        android:id="@+id/user_name_profile_screen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif"
+        android:textSize="40dp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/user_name_profile_screen"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="150dp"
+        android:orientation="vertical"
+
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/email_title_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="My Email: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/email_holder_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/username_title_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="My Username: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/username_holder_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/numOfGroups_title_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_weight="1"
+                android:text="Number of my Hobbies groups: "
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/numOfGroups_holder_profile_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingRight="10dp"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/activity_user_profile_logout_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="logout"
-        android:layout_marginRight="10dp"
-        android:padding="5dp"
-        app:cornerRadius="5dp"
-        android:theme="@style/MyButton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="80dp"
         android:onClick="logout"
-        >
+        android:padding="5dp"
+        android:text="logout"
+        android:theme="@style/MyButton"
+        app:cornerRadius="5dp">
 
     </com.google.android.material.button.MaterialButton>
 
+    <ImageView
+        android:id="@+id/activity_user_profile_bottom_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#233E8B"
+        >
 
+    </ImageView>
+
+    <!-- Bottom Dashboard -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/activity_user_profile_btn_home"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/home">
+
+        </ImageButton>
+
+
+        <ImageButton
+            android:id="@+id/activity_user_profile_btn_location"
+            android:layout_width="45dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:baselineAlignBottom="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/placeholder">
+
+        </ImageButton>
+
+
+        <ImageButton
+            android:id="@+id/activity_user_profile_btn_myGroups"
+            android:layout_width="50dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/group">
+
+        </ImageButton>
+
+
+        <ImageButton
+            android:id="@+id/activity_user_profile_btn_myProfile"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="3dp"
+            android:layout_weight="1"
+            android:background="@null"
+
+            android:scaleType="fitCenter"
+            android:src="@drawable/user">
+
+        </ImageButton>
+
+    </LinearLayout>
 
 
 

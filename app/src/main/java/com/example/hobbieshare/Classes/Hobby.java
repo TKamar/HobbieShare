@@ -22,9 +22,9 @@ public class Hobby {
         this.eventId = idGeneratorHobbies++;
     }
 
-    public Hobby(int eventId, String title, String eventManagerId, ArrayList<String> participants, String categoryOfEvent, String subCategory,
+    public Hobby(String title, String eventManagerId, ArrayList<String> participants, String categoryOfEvent, String subCategory,
                  String description, String lat, String lon) {
-        this.eventId = eventId;
+        this.eventId = idGeneratorHobbies++;
         this.title = title;
         this.eventManagerId = eventManagerId;
         this.participants = participants;

@@ -28,6 +28,7 @@
         android:src="@drawable/button_my_hobbies2">
 
     </ImageView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -41,26 +42,24 @@
             android:id="@+id/my_hobbies_hobbyList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
-    <FrameLayout
-        android:id="@+id/frame_map"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@+id/my_hobbies_list"
-        android:layout_marginTop="20dp"
-        android:layout_weight="1"
-        >
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
+        <FrameLayout
+            android:id="@+id/frame_map"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="0dp"
+            android:layout_below="@+id/my_hobbies_list"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1">
+
+            <fragment
+                android:id="@+id/my_hobbies_map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
 
-    </FrameLayout>
+        </FrameLayout>
 
 
     </LinearLayout>
@@ -147,23 +146,6 @@
 
 
     </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </RelativeLayout>

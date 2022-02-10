@@ -78,7 +78,6 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
-
             doLat = Double.parseDouble(data.getString("lat"));
             doLon = Double.parseDouble(data.getString("lon"));
         }

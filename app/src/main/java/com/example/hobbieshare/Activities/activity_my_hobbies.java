@@ -45,7 +45,6 @@ public class activity_my_hobbies extends AppCompatActivity {
     private DatabaseReference myRef;
     private FirebaseUser firebaseUser;
 
-    private ListView listView;
     private ImageButton btn_home;
     private ImageButton btn_myGroups;
     private ImageButton btn_createNewEvent;
@@ -78,12 +77,9 @@ public class activity_my_hobbies extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         firebaseUser = firebaseAuth.getCurrentUser();
         findViews();
-        initFragmentHobbyList();
         initFragmentMap();
-        //getHobbiesFromDB();
+        initFragmentHobbyList();
 
-
-        //getMyHobbiesListFromDB();
         Log.d("myHobbies", "onCreate: myHobbies" + myHobbies);
 
 
@@ -110,12 +106,6 @@ public class activity_my_hobbies extends AppCompatActivity {
             }
         });
 
-        btn_myGroups.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToMyHobbiesScreen();
-            }
-        });
 
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,12 +137,14 @@ public class activity_my_hobbies extends AppCompatActivity {
     Callback_List callback_list = new Callback_List() {
         @Override
         public void getHobbyLocation(double lat, double lon) {
+            fragment_map.setLat(lat).setLon(lon);
+            callback_map.mapClicked(lat, lon);
 
         }
     };
 
     Callback_Map callback_map = (lat, lon) -> {
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.my_hobbies_map);
         mapFragment.getMapAsync(googleMap -> {
             LatLng latLng = new LatLng(lat, lon);
             googleMap.clear();
@@ -161,63 +153,10 @@ public class activity_my_hobbies extends AppCompatActivity {
         });
     };
 
-    private void getHobbiesFromDB() {
-        Callback_Hobbies callback_hobbies = new Callback_Hobbies() {
-            @Override
-            public void dataReady(ArrayList<Hobby> myHobbies) {
-                Log.d("dataReady", "dataReady: " + myHobbies.size());
-                setHobbiesFromCallback(myHobbies);
-                setListView(myHobbies);
-
-            }
-        };
-        DB_Manager.getHobbiesOfCurrUser(callback_hobbies);
-
-        Log.d("myHobbies", "getHobbiesFromDB: " + myHobbies);
-    }
-
-    private void setListView(ArrayList<Hobby> myHobbies) {
-        for (Hobby hobby : myHobbies) {
-            ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, (List) hobby);
-        }
-    }
-
-    private void setHobbiesFromCallback(ArrayList<Hobby> hobbies) {
-        this.myHobbies.addAll(hobbies);
-        Log.d("myHobbies", "setHobbiesFromCallback: " + this.myHobbies.size());
-        Log.d("myHobbies", "setHobbiesFromCallback: " + this.myHobbies.toString());
-    }
-
-
-//    private void getMyHobbiesListFromDB() {
-//        myRef = database.getReference().child("users").child(firebaseUser.getUid()).child("userHobbies");
-//        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot child : snapshot.getChildren()) {
-//                    try {
-//                        Hobby hobbyEvent = child.getValue(Hobby.class);
-//                        myHobbies.add(hobbyEvent);
-//                    } catch (Exception exception) { }
-//                }
-//                setMyHobbiesList();
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
-//
-//    private void setMyHobbiesList() {
-//        Log.d("myHobbies", "setMyHobbiesList: " + myHobbies);
-//    }
 
 
     /** Init Views */
     private void findViews() {
-        listView = findViewById(R.id.my_hobbies_list);
         btn_home = findViewById(R.id.my_hobbies_btn_home);
         btn_myGroups = findViewById(R.id.my_hobbies_btn_myGroups);
         btn_myProfile = findViewById(R.id.my_hobbies_btn_myProfile);
@@ -232,8 +171,8 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     private void goToFindByLocationScreen() {
         Intent intent = new Intent(this, activity_find_by_location.class);
-        //intent.putExtra("lat", Double.parseDouble(latitude));
-        //intent.putExtra("lon", Double.parseDouble(longitude));
+        intent.putExtra("lat", "" + lat);
+        intent.putExtra("lon", "" + lon);
         if (intent != null) {
             finish();
             startActivity(intent);
@@ -244,6 +183,8 @@ public class activity_my_hobbies extends AppCompatActivity {
     private void goToHomeScreen() {
         Intent intent = new Intent(this, activity_home_screen.class);
         if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
@@ -253,14 +194,8 @@ public class activity_my_hobbies extends AppCompatActivity {
     private void goToProfileScreen() {
         Intent intent = new Intent(this, activity_user_profile.class);
         if (intent != null){
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToMyHobbiesScreen() {
-        Intent intent = new Intent(this, activity_my_hobbies.class);
-        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }

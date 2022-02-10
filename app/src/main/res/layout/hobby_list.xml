@@ -14,17 +14,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#DBE2EF">
+        android:background="#EEEEEE"
+        android:padding="10dp"
+        >
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/list_IMG_image"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_alignBottom="@id/list_LBL_description"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/icon_background" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -54,7 +56,9 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="Description"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textIsSelectable="true"
+            />
 
 
     </RelativeLayout>

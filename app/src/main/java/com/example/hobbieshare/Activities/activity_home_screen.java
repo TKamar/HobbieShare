@@ -13,7 +13,6 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -36,10 +35,9 @@ public class activity_home_screen extends AppCompatActivity {
     private ImageButton btn_myHobbies;
     private Context context;
 
-    double[] myCoordinates = new double[2];
     private LocationManager locationManager;
-    private String latitude = "";
-    private String longitude = "";
+    private String lat = "";
+    private String lon = "";
 
 
     @Override
@@ -59,19 +57,10 @@ public class activity_home_screen extends AppCompatActivity {
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             OnGPS();
         } else {
-            Log.d("Hiiii", "onCreate: im in else");
             getLocation();
         }
 
 
-        btn_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                activity_switch_activities switchScreen = new activity_switch_activities();
-//                switchScreen.goToHomeScreen(context);
-                goToHomeScreen();
-            }
-        });
 
         btn_searchAroundMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,27 +132,21 @@ public class activity_home_screen extends AppCompatActivity {
 
     private void goToLocationScreen() {
         Intent intent = new Intent(this, activity_find_by_location.class);
-        intent.putExtra("lat", Double.parseDouble(latitude));
-        intent.putExtra("lon", Double.parseDouble(longitude));
         if (intent != null) {
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
 
     }
 
-    private void goToHomeScreen() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null){
-            finish();
-            startActivity(intent);
-        }
-
-    }
 
     private void goToProfileScreen() {
         Intent intent = new Intent(this, activity_user_profile.class);
         if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
@@ -172,8 +155,8 @@ public class activity_home_screen extends AppCompatActivity {
     private void goToMyHobbiesScreen() {
         Intent intent = new Intent(this, activity_my_hobbies.class);
         if (intent != null){
-            intent.putExtra("lat", "" + latitude);
-            intent.putExtra("lon", "" + longitude);
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
@@ -182,8 +165,8 @@ public class activity_home_screen extends AppCompatActivity {
     private void goToCreateNewHobbyEventScreen() {
         Intent intent = new Intent(this, activity_create_new_event.class);
         if (intent != null){
-            intent.putExtra("lat", "" + latitude);
-            intent.putExtra("lon", "" + longitude);
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
@@ -222,8 +205,8 @@ public class activity_home_screen extends AppCompatActivity {
 
                 double lat = locationGPS.getLatitude();
                 double lon = locationGPS.getLongitude();
-                latitude = String.valueOf(lat);
-                longitude = String.valueOf(lon);
+                this.lat = String.valueOf(lat);
+                this.lon = String.valueOf(lon);
 
             } else {
                 Toast.makeText(this, "Unable to find location.", Toast.LENGTH_SHORT).show();
