@@ -107,45 +107,6 @@ public class activity_register extends AppCompatActivity {
     }
 
 
-    /** Switch Activities functions */
-    private void goToOpeningScreen() {
-        Intent intent = new Intent(this, activity_opening_screen.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToLoginScreen() {
-        Intent intent = new Intent(this, activity_login.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToHomeScreen() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
-
-    private void findViews() {
-        registerFullname = findViewById(R.id.plainTxt_fullName);
-        registerEmail = findViewById(R.id.login_screen_plainTxt_Email);
-        registerPassword = findViewById(R.id.login_screen_plainTxt_password);
-        registerPasswordConfirm = findViewById(R.id.plainTxt_password_confirm);
-        registerUsername = findViewById(R.id.plainTxt_Username);
-        registerButton = findViewById(R.id.register_screen_btn_register);
-        progressBar = findViewById(R.id.register_screen_progressBar);
-        firebaseAuth = FirebaseAuth.getInstance();
-        goBack = findViewById(R.id.register_img_go_back);
-        goToLogin = findViewById(R.id.txt_go_to_login);
-    }
-
     /** Register User into FireBase Data  */
     private void addUserToDB(){
 
@@ -197,8 +158,45 @@ public class activity_register extends AppCompatActivity {
                 }
             }
         });
+    }
 
+    /** Init Views */
+    private void findViews() {
+        registerFullname = findViewById(R.id.plainTxt_fullName);
+        registerEmail = findViewById(R.id.login_screen_plainTxt_Email);
+        registerPassword = findViewById(R.id.login_screen_plainTxt_password);
+        registerPasswordConfirm = findViewById(R.id.plainTxt_password_confirm);
+        registerUsername = findViewById(R.id.plainTxt_Username);
+        registerButton = findViewById(R.id.register_screen_btn_register);
+        progressBar = findViewById(R.id.register_screen_progressBar);
+        firebaseAuth = FirebaseAuth.getInstance();
+        goBack = findViewById(R.id.register_img_go_back);
+        goToLogin = findViewById(R.id.txt_go_to_login);
+    }
 
+    /** Switch Activities functions */
+    private void goToOpeningScreen() {
+        Intent intent = new Intent(this, activity_opening_screen.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToLoginScreen() {
+        Intent intent = new Intent(this, activity_login.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(this, activity_home_screen.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
     }
 
 }

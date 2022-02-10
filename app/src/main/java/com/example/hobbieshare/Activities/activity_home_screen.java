@@ -60,13 +60,9 @@ public class activity_home_screen extends AppCompatActivity {
             getLocation();
         }
 
-
-
         btn_searchAroundMe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                activity_switch_activities switchScreen = new activity_switch_activities();
-//                switchScreen.goToLocationScreen(context);
                 goToLocationScreen();
             }
         });
@@ -74,8 +70,6 @@ public class activity_home_screen extends AppCompatActivity {
         btn_searchByLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                activity_switch_activities switchScreen = new activity_switch_activities();
-//                switchScreen.goToLocationScreen(context);
                 goToLocationScreen();
             }
         });
@@ -108,73 +102,10 @@ public class activity_home_screen extends AppCompatActivity {
             }
         });
 
-
-
-    }
-
-
-
-
-    private void findViews() {
-
-        btn_home = findViewById(R.id.btn_home);
-        btn_myGroups = findViewById(R.id.btn_myGroups);
-        btn_searchByLocation = findViewById(R.id.btn_location);
-        btn_createNewEvent = findViewById(R.id.button_create_new_event);
-        btn_myProfile = findViewById(R.id.btn_myProfile);
-        btn_searchAroundMe = findViewById(R.id.button_search_hobbies);
-        btn_myHobbies = findViewById(R.id.button_myHobbies);
     }
 
     /**
-     * Intent - Switch between activities
-     * */
-
-    private void goToLocationScreen() {
-        Intent intent = new Intent(this, activity_find_by_location.class);
-        if (intent != null) {
-            intent.putExtra("lat", "" + lat);
-            intent.putExtra("lon", "" + lon);
-            finish();
-            startActivity(intent);
-        }
-
-    }
-
-
-    private void goToProfileScreen() {
-        Intent intent = new Intent(this, activity_user_profile.class);
-        if (intent != null){
-            intent.putExtra("lat", "" + lat);
-            intent.putExtra("lon", "" + lon);
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToMyHobbiesScreen() {
-        Intent intent = new Intent(this, activity_my_hobbies.class);
-        if (intent != null){
-            intent.putExtra("lat", "" + lat);
-            intent.putExtra("lon", "" + lon);
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToCreateNewHobbyEventScreen() {
-        Intent intent = new Intent(this, activity_create_new_event.class);
-        if (intent != null){
-            intent.putExtra("lat", "" + lat);
-            intent.putExtra("lon", "" + lon);
-            finish();
-            startActivity(intent);
-        }
-    }
-
-
-    /**
-     * Location Funcs
+     * Location Functions
      * */
 
     private void OnGPS() {
@@ -213,4 +144,64 @@ public class activity_home_screen extends AppCompatActivity {
             }
         }
     }
+
+
+    /** Init Views */
+
+    private void findViews() {
+        btn_home = findViewById(R.id.btn_home);
+        btn_myGroups = findViewById(R.id.btn_myGroups);
+        btn_searchByLocation = findViewById(R.id.btn_location);
+        btn_createNewEvent = findViewById(R.id.button_create_new_event);
+        btn_myProfile = findViewById(R.id.btn_myProfile);
+        btn_searchAroundMe = findViewById(R.id.button_search_hobbies);
+        btn_myHobbies = findViewById(R.id.button_myHobbies);
+    }
+
+
+    /**
+     * Intent - Switch between activities
+     * */
+
+    private void goToLocationScreen() {
+        Intent intent = new Intent(this, activity_find_by_location.class);
+        if (intent != null) {
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToProfileScreen() {
+        Intent intent = new Intent(this, activity_user_profile.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToMyHobbiesScreen() {
+        Intent intent = new Intent(this, activity_my_hobbies.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToCreateNewHobbyEventScreen() {
+        Intent intent = new Intent(this, activity_create_new_event.class);
+        if (intent != null){
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
+            finish();
+            startActivity(intent);
+        }
+    }
+
+
 }

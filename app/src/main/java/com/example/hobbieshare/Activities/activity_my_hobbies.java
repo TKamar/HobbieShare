@@ -80,10 +80,6 @@ public class activity_my_hobbies extends AppCompatActivity {
         initFragmentMap();
         initFragmentHobbyList();
 
-        Log.d("myHobbies", "onCreate: myHobbies" + myHobbies);
-
-
-
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,9 +112,9 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     }
 
+    /** Init Fragments */
     private void initFragmentHobbyList() {
         fragment_hobby_list = new Fragment_Hobby_List();
-        Log.d("initFragmentHobbyList", "initFragmentHobbyList: " + fragment_hobby_list.toString()) ;
         fragment_hobby_list.setActivity(this);
         fragment_hobby_list.setCallbackList(callback_list);
         callback_list.getHobbyLocation(lat, lon);
@@ -171,9 +167,9 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     private void goToFindByLocationScreen() {
         Intent intent = new Intent(this, activity_find_by_location.class);
-        intent.putExtra("lat", "" + lat);
-        intent.putExtra("lon", "" + lon);
         if (intent != null) {
+            intent.putExtra("lat", "" + lat);
+            intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
@@ -182,7 +178,7 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     private void goToHomeScreen() {
         Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null){
+        if (intent != null) {
             intent.putExtra("lat", "" + lat);
             intent.putExtra("lon", "" + lon);
             finish();
@@ -193,21 +189,12 @@ public class activity_my_hobbies extends AppCompatActivity {
 
     private void goToProfileScreen() {
         Intent intent = new Intent(this, activity_user_profile.class);
-        if (intent != null){
+        if (intent != null) {
             intent.putExtra("lat", "" + lat);
             intent.putExtra("lon", "" + lon);
             finish();
             startActivity(intent);
         }
     }
-
-
-
-
-
-
-
-
-
 
 }

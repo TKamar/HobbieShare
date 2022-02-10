@@ -46,14 +46,12 @@ public class activity_user_profile extends AppCompatActivity {
         findViews();
         setUsersFromDB();
 
-
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToHomeScreen();
             }
         });
-
 
         btn_myGroups.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +84,6 @@ public class activity_user_profile extends AppCompatActivity {
         welcomingTitle.setText("Hi " + user.getFullName() + "!");
     }
 
-    private void findViews() {
-        myEmail = findViewById(R.id.email_holder_profile_screen);
-        myUsername = findViewById(R.id.username_holder_profile_screen);
-        numOfHobbies = findViewById(R.id.numOfGroups_holder_profile_screen);
-        btn_home = findViewById(R.id.activity_user_profile_btn_home);
-        btn_myGroups = findViewById(R.id.activity_user_profile_btn_myGroups);
-        btn_location = findViewById(R.id.activity_user_profile_btn_location);
-        logo = findViewById(R.id.activity_user_profile_screen_logo);
-        welcomingTitle = findViewById(R.id.user_name_profile_screen);
-    }
 
     public void logout(View view) {
         FirebaseAuth.getInstance().signOut();
@@ -103,6 +91,7 @@ public class activity_user_profile extends AppCompatActivity {
         finish();
     }
 
+    /** DB Data functions */
     private void setUsersFromDB() {
         Callback_Users callback_users = new Callback_Users() {
             @Override
@@ -120,7 +109,18 @@ public class activity_user_profile extends AppCompatActivity {
                 setUserInfo(user);
             }
         }
+    }
 
+    /** Init Views */
+    private void findViews() {
+        myEmail = findViewById(R.id.email_holder_profile_screen);
+        myUsername = findViewById(R.id.username_holder_profile_screen);
+        numOfHobbies = findViewById(R.id.numOfGroups_holder_profile_screen);
+        btn_home = findViewById(R.id.activity_user_profile_btn_home);
+        btn_myGroups = findViewById(R.id.activity_user_profile_btn_myGroups);
+        btn_location = findViewById(R.id.activity_user_profile_btn_location);
+        logo = findViewById(R.id.activity_user_profile_screen_logo);
+        welcomingTitle = findViewById(R.id.user_name_profile_screen);
     }
 
     /**
@@ -135,7 +135,6 @@ public class activity_user_profile extends AppCompatActivity {
             finish();
             startActivity(intent);
         }
-
     }
 
     private void goToHomeScreen() {
@@ -146,7 +145,6 @@ public class activity_user_profile extends AppCompatActivity {
             finish();
             startActivity(intent);
         }
-
     }
 
     private void goToMyGroupsScreen() {

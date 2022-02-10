@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,8 +16,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.hobbieshare.CallBacks.Callback_Map;
+import com.example.hobbieshare.CallBacks.Callback_Users;
 import com.example.hobbieshare.Classes.DB_Manager;
 import com.example.hobbieshare.Classes.Hobby;
+import com.example.hobbieshare.Classes.User;
 import com.example.hobbieshare.Fragments.Fragment_Map;
 import com.example.hobbieshare.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,12 +36,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class activity_create_new_event extends AppCompatActivity implements OnMapReadyCallback {
 
     private FirebaseDatabase database;
     private DatabaseReference myRef;
     private FirebaseAuth mAuth;
+    private FirebaseUser firebaseUser;
 
+    private ArrayList<User> allUsers = new ArrayList<>();
     private EditText eventTitle, eventDescription, lat, lon;
     private MapView myMap;
     private Fragment_Map map_fragment;
@@ -69,12 +76,12 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_new_event);
 
-
         findViews();
         initFragments();
         initSpinnersAdapters();
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
@@ -118,15 +125,14 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
 
     }
 
+    /** DB Data functions */
     private void saveNewEventToDB() {
-
        String title = eventTitle.getText().toString();
        String description = eventDescription.getText().toString();
        String mainCategory = eventMainType.getSelectedItem().toString();
        String innerCategory = eventInnerType.getSelectedItem().toString();
        String latitude = lat.getText().toString();
        String longitude = lon.getText().toString();
-
 
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
@@ -140,33 +146,38 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
                 .setSubCategory(innerCategory)
                 .setCategoryOfEvent(mainCategory)
                 .setTitle(title)
-                .setParticipants(firebaseUser.getEmail())
+                //.setParticipants(firebaseUser.getEmail())
                 ;
 
         myRef = database.getReference("hobbies");
         myRef.child(""+hobbyEvent.getEventId()).setValue(hobbyEvent);
+        Hobby.setHobbiesIdGenerator(hobbyEvent.getEventId()+1);
 
         DB_Manager.setCounter("Hobbies_Counter", Hobby.getIdGenerator());
         Toast.makeText(activity_create_new_event.this, "Hobby Event Created", Toast.LENGTH_SHORT).show();
-
+        setUsersFromDB(hobbyEvent);
         goToHomeScreen();
     }
 
-    /** Init Functions */
-
-    public void findViews() {
-        eventTitle = findViewById(R.id.create_new_event_screen_event_title_content);
-        eventDescription = findViewById(R.id.create_new_event_screen_event_description_content);
-        eventMainType = findViewById(R.id.create_new_event_screen_event_main_type_spinner);
-        eventInnerType = findViewById(R.id.create_new_event_screen__event_inner_type_spinner);
-        lat = findViewById(R.id.create_new_event_screen_event_lat_content);
-        lon = findViewById(R.id.create_new_event_screen_event_lon_content);
-        logo = findViewById(R.id.create_new_event_screen_logo);
-        goBack = findViewById(R.id.create_new_event_screen_img_go_back);
-        createNewEventBtn = findViewById(R.id.create_new_event_screen_create_new_event_button);
-
+    private void setUsersFromDB(Hobby hobby) {
+        Callback_Users callback_users = new Callback_Users() {
+            @Override
+            public void dataReady(ArrayList<User> users) {
+                addHobbyToUser(users, hobby);
+            }
+        };
+        DB_Manager.getAllUsers(callback_users);
     }
 
+    private void addHobbyToUser(ArrayList<User> users, Hobby hobby) {
+        for(User user: users) {
+            if(user.getEmail().equals(firebaseUser.getEmail())) { ;
+                user.addUserHobbies(hobby);
+            }
+        }
+    }
+
+    /** Init Fragments */
     private void initFragments() {
         map_fragment = new Fragment_Map();
         map_fragment.setActivity(this);
@@ -177,17 +188,6 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.create_new_event_screen_map);
         mapFragment.getMapAsync(this);
-    }
-
-    /** Switch Screens Functions */
-
-    private void goToHomeScreen() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null){
-            finish();
-            startActivity(intent);
-        }
-
     }
 
     /** Map and Markers Functions*/
@@ -291,8 +291,29 @@ public class activity_create_new_event extends AppCompatActivity implements OnMa
         eventInnerType.setAdapter(innerSpinnerAdapter);
     }
 
+    /** Init Functions */
 
-    /** Database functions */
+    public void findViews() {
+        eventTitle = findViewById(R.id.create_new_event_screen_event_title_content);
+        eventDescription = findViewById(R.id.create_new_event_screen_event_description_content);
+        eventMainType = findViewById(R.id.create_new_event_screen_event_main_type_spinner);
+        eventInnerType = findViewById(R.id.create_new_event_screen__event_inner_type_spinner);
+        lat = findViewById(R.id.create_new_event_screen_event_lat_content);
+        lon = findViewById(R.id.create_new_event_screen_event_lon_content);
+        logo = findViewById(R.id.create_new_event_screen_logo);
+        goBack = findViewById(R.id.create_new_event_screen_img_go_back);
+        createNewEventBtn = findViewById(R.id.create_new_event_screen_create_new_event_button);
+    }
+
+    /** Switch Screens Functions */
+
+    private void goToHomeScreen() {
+        Intent intent = new Intent(this, activity_home_screen.class);
+        if (intent != null){
+            finish();
+            startActivity(intent);
+        }
+    }
 
 
 }

@@ -53,12 +53,6 @@
             android:name=".Activities.activity_login"
             android:exported="false" />
         <activity
-            android:name=".Activities.FacebookLoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Activities.activity_switch_activities"
-            android:exported="false" />
-        <activity
             android:name=".Activities.activity_find_by_location"
             android:exported="false" />
         <activity

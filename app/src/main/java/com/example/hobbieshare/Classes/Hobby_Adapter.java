@@ -102,7 +102,6 @@ public class Hobby_Adapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-
     public class HobbyViewHolder extends RecyclerView.ViewHolder {
         private MaterialTextView myHobbies_hobby;
         private MaterialTextView myHobbies_description;

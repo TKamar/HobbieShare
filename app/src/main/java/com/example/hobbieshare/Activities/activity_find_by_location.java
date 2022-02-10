@@ -44,8 +44,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     private ImageButton btn_myGroups;
     private ImageButton btn_searchByLocation;
     private ImageButton btn_myProfile;
-
-
     private ImageButton logo, searchButton, joinToEventButton;
     private double lat, lon;
     private Spinner eventMainType;
@@ -77,9 +75,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     private SupportMapFragment mapFragmentSupport;
     private Marker marker;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,11 +86,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         joinToEventButton.setVisibility(View.INVISIBLE);
         getHobbiesFromDB();
 
-//        Bundle locationData = getIntent().getExtras();
-//        if (locationData != null) {
-//            lat = locationData.getDouble("lat");
-//            lon = locationData.getDouble("lon");
-//        }
 
         Bundle data = getIntent().getExtras();
         if (data != null) {
@@ -104,8 +94,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         }
 
         ZoomOnMap(lat, lon);
-        Log.d("allHobbies", "onCreate: allHobbies: " + allHobbies);
-
 
         logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +101,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                 goToHomeScreen();
             }
         });
-
 
         btn_myProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,27 +172,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         eventInnerType.setAdapter(innerSpinnerAdapter);
     }
 
-    /** Init Functions */
-    private void findViews() {
-
-        logo = findViewById(R.id.location_screen_logo);
-        //eventMainType = findViewById(R.id.find_by_location_screen_events_main_type);
-        //eventInnerType = findViewById(R.id.find_by_location_screen_events_inner_type);
-        eventTitle = findViewById(R.id.find_by_location_screen_event_title);
-        //eventTime = findViewById(R.id.find_by_location_screen_event_time);
-        eventDescription = findViewById(R.id.find_by_location_screen_event_description);
-        //searchButton  = findViewById(R.id.find_by_location_screen_search);
-        joinToEventButton = findViewById(R.id.find_by_location_screen_ask_to_join);
-        eventCategory = findViewById(R.id.find_by_location_screen_event_Category);
-        eventSubcategory = findViewById(R.id.find_by_location_screen_event_innerCategory);
-        btn_home = findViewById(R.id.find_by_location_screen_btn_home);
-        btn_myGroups = findViewById(R.id.find_by_location_screen_btn_myGroups);
-        btn_searchByLocation = findViewById(R.id.find_by_location_screen_btn_location);
-        btn_myProfile = findViewById(R.id.find_by_location_screen_btn_myProfile);
-    }
-
-
-
 
     /**
      * Callback functions
@@ -224,7 +190,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
 
             for (int i = 0; i < allHobbies.size(); i++) {
                 tmpHobby = allHobbies.get(i);
-                Log.d("allHobbies", "allHobbies: " + i + ": " + tmpHobby);
                 lat1 = Double.parseDouble(tmpHobby.getLat());
                 lon1 = Double.parseDouble(tmpHobby.getLon());
                 LatLng tmpCoordinates = new LatLng(lat1, lon1);
@@ -247,27 +212,24 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     }
 
 
+    /** DB Data functions */
+
     private void getHobbiesFromDB() {
         Callback_Hobbies callback_hobbies = new Callback_Hobbies() {
             @Override
             public void dataReady(ArrayList<Hobby> allHobbies) {
-                Log.d("dataReady", "dataReady: " + allHobbies.size());
                 setHobbiesFromCallback(allHobbies);
                 setUsersFromDB();
                 addMapMarkers();
             }
         };
         DB_Manager.getAllHobbies(callback_hobbies);
-
-        Log.d("getHobbiesFromDB", "getHobbiesFromDB: " + allHobbies);
     }
 
     private void setHobbiesFromCallback(ArrayList<Hobby> allHobbies){
-        for(Hobby hobby: allHobbies){
+        for(Hobby hobby: allHobbies) {
             this.allHobbies.add(hobby);
         }
-        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.allHobbies.size());
-        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.allHobbies.toString());
     }
 
 
@@ -275,7 +237,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         Callback_Users callback_users = new Callback_Users() {
             @Override
             public void dataReady(ArrayList<User> users) {
-                Log.d("setUsersFromDB", "dataReady: users" + users.toString());
                 setUsers(users);
             }
         };
@@ -283,7 +244,7 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
     }
 
     private void setUsers(ArrayList<User> users) {
-        for(User user : users){
+        for(User user : users) {
             this.allUsers.add(user);
         }
 
@@ -291,13 +252,12 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
 
     private void addHobbyToUser(Hobby hobby) {
         User myUser;
-        for(User user: allUsers){
+        for(User user: allUsers) {
             if(user.getEmail().equals(firebaseUser.getEmail())) {
                 myUser = user;
                 myUser.addUserHobbies(hobby);
                 addUserToHobby(user, hobby);
             }
-
         }
     }
 
@@ -307,8 +267,6 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                 tmpHobby.setParticipants(user.getEmail());
                 Toast.makeText(activity_find_by_location.this, "You have joined the bobby group ~ ! ", Toast.LENGTH_SHORT).show();
                 DB_Manager.updateDB(user, hobby);
-                Log.d("addUserToHobby", "addUserToHobby: all users: " + allUsers);
-                Log.d("addUserToHobby", "addUserToHobby: all hobbies: " + allHobbies);
             }
         }
     }
@@ -337,19 +295,14 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                             hobby.getTitle(),
                             hobby.getDescription(),
                             hobby);
-                    Log.d("addMapMarkers", "addMapMarkers: location of hobbies" + hobby.toString());
 
                     clusterManager.addItem(newMarker);
                     clusterMarkerArr.add(newMarker);
-
-                    //myMap.setOnMarkerClickListener(clusterManager);
 
                 } catch (NullPointerException e) {
                     Log.e("addMapMarkers", "addMapMarkers: NullPointerException: " + e.getMessage());
                 }
             }
-
-
 
             clusterManager.setOnClusterItemClickListener(new ClusterManager.OnClusterItemClickListener() {
                 @Override
@@ -367,23 +320,17 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
                                 @Override
                                 public void onClick(View v) {
                                     addHobbyToUser(hobby);
-
                                 }
                             });
                         }
                     }
-
                     return false;
                 }
             });
-
             clusterManager.cluster();
-
-
         });
 
     }
-
 
 
     @Override
@@ -391,6 +338,23 @@ public class activity_find_by_location extends AppCompatActivity implements OnMa
         map = googleMap;
     }
 
+    /** Init Functions */
+    private void findViews() {
+        logo = findViewById(R.id.location_screen_logo);
+        //eventMainType = findViewById(R.id.find_by_location_screen_events_main_type);
+        //eventInnerType = findViewById(R.id.find_by_location_screen_events_inner_type);
+        eventTitle = findViewById(R.id.find_by_location_screen_event_title);
+        //eventTime = findViewById(R.id.find_by_location_screen_event_time);
+        eventDescription = findViewById(R.id.find_by_location_screen_event_description);
+        //searchButton  = findViewById(R.id.find_by_location_screen_search);
+        joinToEventButton = findViewById(R.id.find_by_location_screen_ask_to_join);
+        eventCategory = findViewById(R.id.find_by_location_screen_event_Category);
+        eventSubcategory = findViewById(R.id.find_by_location_screen_event_innerCategory);
+        btn_home = findViewById(R.id.find_by_location_screen_btn_home);
+        btn_myGroups = findViewById(R.id.find_by_location_screen_btn_myGroups);
+        btn_searchByLocation = findViewById(R.id.find_by_location_screen_btn_location);
+        btn_myProfile = findViewById(R.id.find_by_location_screen_btn_myProfile);
+    }
 
     /**
      * Intent - Switch between activities

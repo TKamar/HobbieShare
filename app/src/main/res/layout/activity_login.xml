@@ -138,32 +138,6 @@
             android:textSize="16dp" />
 
 
-        <FrameLayout
-            android:id="@+id/FrameLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_go_to_register"
-            android:layout_marginTop="50dp"
-
-            >
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/facebook_login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/fb_login_btn"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#416BC1"
-                android:onClick="onClick"
-                android:text="LogIn with FaceBook"
-                android:textColor="#ffffff"
-                android:textStyle="bold" />
-
-        </FrameLayout>
 
         <ProgressBar
             android:id="@+id/login_screen_progressBar"

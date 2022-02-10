@@ -55,37 +55,10 @@ public class activity_opening_screen extends AppCompatActivity {
             }
         });
 
-
-
-
     }
 
-    /** Switch Activities */
-    private void goToLoginScreen() {
-        Intent intent = new Intent(this, activity_login.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
 
-    private void goToRegisterScreen() {
-        Intent intent = new Intent(this, activity_register.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    private void goToHomeScreen() {
-        Intent intent = new Intent(this, activity_home_screen.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
-    /** Animation */
+    /** Animation functions */
     private void startAnimation(ImageView img) {
         img.setVisibility(View.VISIBLE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -130,20 +103,12 @@ public class activity_opening_screen extends AppCompatActivity {
     }
 
     private void animationDone() {
-
         btn_login.setVisibility(View.VISIBLE);
         btn_register.setVisibility(View.VISIBLE);
     }
 
 
-    /** Init Functions */
-    private void findViews() {
-        logo = findViewById(R.id.activity_opening_screen_logo);
-        btn_login = findViewById(R.id.activity_opening_screen_login_button);
-        btn_register = findViewById(R.id.activity_opening_screen_register_button);
-    }
-
-
+    /** DB Data functions */
     private void initCounters() {
         DB_Manager.getCounter("Users_Counter", new Callback_Counter() {
             @Override
@@ -160,6 +125,28 @@ public class activity_opening_screen extends AppCompatActivity {
         });
     }
 
+    /** Init Functions */
+    private void findViews() {
+        logo = findViewById(R.id.activity_opening_screen_logo);
+        btn_login = findViewById(R.id.activity_opening_screen_login_button);
+        btn_register = findViewById(R.id.activity_opening_screen_register_button);
+    }
 
+    /** Switch Activities */
+    private void goToLoginScreen() {
+        Intent intent = new Intent(this, activity_login.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
+
+    private void goToRegisterScreen() {
+        Intent intent = new Intent(this, activity_register.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
+    }
 
 }

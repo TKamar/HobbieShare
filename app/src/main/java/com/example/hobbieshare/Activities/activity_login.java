@@ -41,12 +41,10 @@ public class activity_login extends AppCompatActivity {
 
     private EditText loginEmail, loginPassword;
     private MaterialButton loginButton;
-    private static final String TAG = "FacebookLogin";
     private CallbackManager mCallbackManager;
     private ImageButton goBack;
     private ProgressBar progressBar;
     private TextView goToRegister;
-    private String fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +62,7 @@ public class activity_login extends AppCompatActivity {
                 String email = loginEmail.getText().toString().trim();
                 String password = loginPassword.getText().toString().trim();
 
-
                 User user = new User();
-
 
                 if(TextUtils.isEmpty(email)){
                     loginEmail.setError("Email is Required");
@@ -126,29 +122,6 @@ public class activity_login extends AppCompatActivity {
             }
         });
 
-        // [START initialize_fblogin]
-        // Initialize Facebook Login button
-        mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.facebook_login_button);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-            }
-        });
-        // [END initialize_fblogin]
     }
 
 
@@ -160,9 +133,7 @@ public class activity_login extends AppCompatActivity {
         if( mAuth.getCurrentUser() != null){
             FirebaseUser currentUser = mAuth.getCurrentUser();
             updateUI(currentUser);
-
         }
-
 
     }
     // [END on_start_check_user]
@@ -177,47 +148,13 @@ public class activity_login extends AppCompatActivity {
     }
     // [END on_activity_result]
 
-    // [START auth_with_facebook]
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(activity_login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
-    }
-    // [END auth_with_facebook]
 
     private void updateUI(FirebaseUser user) {
 
     }
 
-    public void onClick(View view) {
-    }
 
-    private void goToOpeningScreen() {
-        Intent intent = new Intent(this, activity_opening_screen.class);
-        if (intent != null) {
-            finish();
-            startActivity(intent);
-        }
-    }
-
+    /** Init Views */
     private void findViews() {
         loginButton = findViewById(R.id.login_screen_btn_login);
         loginEmail = findViewById(R.id.login_screen_plainTxt_Email);
@@ -225,5 +162,16 @@ public class activity_login extends AppCompatActivity {
         goBack = findViewById(R.id.login_img_go_back);
         progressBar = findViewById(R.id.login_screen_progressBar);
         goToRegister = findViewById(R.id.txt_go_to_register);
+    }
+
+    /**
+     * Intent - Switch between activities
+     * */
+    private void goToOpeningScreen() {
+        Intent intent = new Intent(this, activity_opening_screen.class);
+        if (intent != null) {
+            finish();
+            startActivity(intent);
+        }
     }
 }

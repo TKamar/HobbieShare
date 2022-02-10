@@ -115,15 +115,6 @@ public class Hobby {
         return idGeneratorHobbies;
     }
 
-//    public String getAdminEvent() {
-//        return adminEvent;
-//    }
-//
-//    public Hobby setAdminEvent(String adminEvent) {
-//        this.adminEvent = adminEvent;
-//        return this;
-//    }
-
     public String getLat() {
         return lat;
     }

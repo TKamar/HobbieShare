@@ -68,32 +68,24 @@ public class Fragment_Hobby_List extends Fragment {
                 board_LST_hobbies.setItemAnimator(new DefaultItemAnimator());
                 board_LST_hobbies.setAdapter(hobby_adapter);
 
-                Log.d("initViews1", "initViews: " + myHobbies);
                 setHobbiesFromCallback(myHobbies);
-                Log.d("initViews2", "initViews: " + myHobbies);
                 hobby_adapter.setHobbyEventItemClickListener(new Hobby_Adapter.HobbyEventItemClickListener() {
                     @Override
                     public void hobbyItemClicked(Hobby hobby, int position) {
-                        Log.d("initViews3", "initViews: " + hobby);
                         double lat = Double.parseDouble(hobby.getLat());
                         double lon = Double.parseDouble(hobby.getLon());
                         callback_list.getHobbyLocation(lat, lon);
                     }
                 });
-                Log.d("initViews1", "initViews: hobby adapter" + hobby_adapter.toString());
             }
         };
         DB_Manager.getHobbiesOfCurrUser(callback_hobbies);
-        Log.d("initViews", "initViews: " + myHobbies);
-        Log.d("initViews", "initViews: " + this.myHobbies);
     }
 
     private void setHobbiesFromCallback(ArrayList<Hobby> allHobbies){
         for(Hobby hobby: allHobbies){
             this.myHobbies.add(hobby);
         }
-        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.myHobbies.size());
-        Log.d("setHobbiesFromCallback", "setHobbiesFromCallback: " + this.myHobbies.toString());
     }
 
     private void findViews(View view) {

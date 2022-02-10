@@ -20,10 +20,6 @@ import java.util.Objects;
 
 public class DB_Manager {
 
-//    public interface Callback_tmpHobby {
-//        void dataReady(ArrayList<Hobby> allHobbies);
-//    }
-
     public static void getAllHobbies(Callback_Hobbies callback_hobbies) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("hobbies");
@@ -34,7 +30,6 @@ public class DB_Manager {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     try {
                         Hobby hobbyEvent = child.getValue(Hobby.class);
-                        Log.d("PTT", "onDataChange: hobbyEvent:" + hobbyEvent.toString());
                         allHobbies.add(hobbyEvent);
                     } catch (Exception exception) { }
                 }
@@ -44,23 +39,17 @@ public class DB_Manager {
                 }
             }
 
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
     }
-
 
     public static void getHobbiesOfCurrUser(Callback_Hobbies callback_hobbies) {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("users").child(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).child("userHobbies");
-        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: myRef" + myRef);
-        Log.d("getHobbiesOfCurrUser", "getHobbiesOfCurrUser: myRef.getDatabase" + myRef.getDatabase());
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -82,10 +71,7 @@ public class DB_Manager {
 
             }
         });
-
-
     }
-
 
     public static void getAllUsers(Callback_Users callback_users) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -98,7 +84,6 @@ public class DB_Manager {
                     try {
                         User user = child.getValue(User.class);
                         allUsers.add(user);
-                        Log.d("getAllUsers", "onDataChange: users in DB Manager: " + user.toString());
                     } catch (Exception exception) {
 
                     }

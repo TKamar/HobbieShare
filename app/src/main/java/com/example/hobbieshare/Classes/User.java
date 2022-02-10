@@ -73,14 +73,6 @@ public class User {
         return userId;
     }
 
-//    public FirebaseAuth getFirebaseAuth() {
-//        return firebaseAuth;
-//    }
-//
-//    public User setFirebaseAuth(FirebaseAuth firebaseAuth) {
-//        this.firebaseAuth = firebaseAuth;
-//        return this;
-//    }
 
     @Override
     public String toString() {
